@@ -22,8 +22,8 @@
 			<implementation>com.dianping.cat.report.RemoteModelService</implementation>
 		</component>
 		<component>
-			<role>com.dianping.cat.report.ReportService</role>
-			<implementation>com.dianping.cat.report.DefaultReportService</implementation>
+			<role>com.dianping.cat.report.ReportRepository</role>
+			<implementation>com.dianping.cat.report.DefaultReportRepository</implementation>
 			<requirements>
 				<requirement>
 					<role>com.dianping.cat.configuration.ServerConfigManager</role>
@@ -86,30 +86,29 @@
 			<implementation>com.dianping.cat.consumer.transaction.TransactionDelegate</implementation>
 		</component>
 		<component>
-			<role>com.dianping.cat.consumer.core.problem.ProblemHandler</role>
-			<role-hint>default-problem</role-hint>
-			<implementation>com.dianping.cat.consumer.core.problem.DefaultProblemHandler</implementation>
-			<configuration>
-				<failureType>URL,SQL,Call,PigeonCall,Cache</failureType>
-				<errorType>Error,RuntimeException,Exception</errorType>
-			</configuration>
-		</component>
-		<component>
-			<role>com.dianping.cat.consumer.core.problem.ProblemHandler</role>
-			<role-hint>long-execution</role-hint>
-			<implementation>com.dianping.cat.consumer.core.problem.LongExecutionProblemHandler</implementation>
+			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
+			<role-hint>event</role-hint>
+			<implementation>com.dianping.cat.consumer.event.EventAnalyzer</implementation>
+			<instantiation-strategy>per-lookup</instantiation-strategy>
 			<requirements>
 				<requirement>
-					<role>com.dianping.cat.configuration.ServerConfigManager</role>
+					<role>com.dianping.cat.report.ReportManager</role>
+					<role-hint>event</role-hint>
 				</requirement>
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
-			<role-hint>problem</role-hint>
-			<implementation>com.dianping.cat.consumer.core.ProblemAnalyzer</implementation>
-			<instantiation-strategy>per-lookup</instantiation-strategy>
+			<role>com.dianping.cat.report.ReportManager</role>
+			<role-hint>event</role-hint>
+			<implementation>com.dianping.cat.report.DefaultReportManager</implementation>
+			<configuration>
+				<name>event</name>
+			</configuration>
 			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.ReportDelegate</role>
+					<role-hint>event</role-hint>
+				</requirement>
 				<requirement>
 					<role>com.dianping.cat.storage.BucketManager</role>
 				</requirement>
@@ -119,8 +118,25 @@
 				<requirement>
 					<role>com.dainping.cat.consumer.core.dal.TaskDao</role>
 				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.ReportDelegate</role>
+			<role-hint>event</role-hint>
+			<implementation>com.dianping.cat.consumer.event.EventDelegate</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
+			<role-hint>problem</role-hint>
+			<implementation>com.dianping.cat.consumer.problem.ProblemAnalyzer</implementation>
+			<instantiation-strategy>per-lookup</instantiation-strategy>
+			<requirements>
 				<requirement>
-					<role>com.dianping.cat.consumer.core.problem.ProblemHandler</role>
+					<role>com.dianping.cat.report.ReportManager</role>
+					<role-hint>problem</role-hint>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.consumer.problem.ProblemHandler</role>
 					<role-hints>
 						<role-hint>default-problem</role-hint>
 						<role-hint>long-execution</role-hint>
@@ -130,11 +146,17 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
-			<role-hint>event</role-hint>
-			<implementation>com.dianping.cat.consumer.core.EventAnalyzer</implementation>
-			<instantiation-strategy>per-lookup</instantiation-strategy>
+			<role>com.dianping.cat.report.ReportManager</role>
+			<role-hint>problem</role-hint>
+			<implementation>com.dianping.cat.report.DefaultReportManager</implementation>
+			<configuration>
+				<name>problem</name>
+			</configuration>
 			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.ReportDelegate</role>
+					<role-hint>problem</role-hint>
+				</requirement>
 				<requirement>
 					<role>com.dianping.cat.storage.BucketManager</role>
 				</requirement>
@@ -147,37 +169,53 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
-			<role-hint>state</role-hint>
-			<implementation>com.dianping.cat.consumer.core.StateAnalyzer</implementation>
-			<instantiation-strategy>per-lookup</instantiation-strategy>
+			<role>com.dianping.cat.report.ReportDelegate</role>
+			<role-hint>problem</role-hint>
+			<implementation>com.dianping.cat.consumer.problem.ProblemDelegate</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.consumer.problem.ProblemHandler</role>
+			<role-hint>default-problem</role-hint>
+			<implementation>com.dianping.cat.consumer.problem.DefaultProblemHandler</implementation>
+			<configuration>
+				<failureType>URL,SQL,Call,PigeonCall,Cache</failureType>
+				<errorType>Error,RuntimeException,Exception</errorType>
+			</configuration>
+		</component>
+		<component>
+			<role>com.dianping.cat.consumer.problem.ProblemHandler</role>
+			<role-hint>long-execution</role-hint>
+			<implementation>com.dianping.cat.consumer.problem.LongExecutionProblemHandler</implementation>
 			<requirements>
 				<requirement>
-					<role>com.dainping.cat.consumer.core.dal.HostinfoDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dainping.cat.consumer.core.dal.TaskDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dainping.cat.consumer.core.dal.ReportDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dainping.cat.consumer.core.dal.ProjectDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.storage.BucketManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.status.ServerStateManager</role>
+					<role>com.dianping.cat.configuration.ServerConfigManager</role>
 				</requirement>
 			</requirements>
 		</component>
 		<component>
 			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
 			<role-hint>heartbeat</role-hint>
-			<implementation>com.dianping.cat.consumer.core.HeartbeatAnalyzer</implementation>
+			<implementation>com.dianping.cat.consumer.heartbeat.HeartbeatAnalyzer</implementation>
 			<instantiation-strategy>per-lookup</instantiation-strategy>
 			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.ReportManager</role>
+					<role-hint>heartbeat</role-hint>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.ReportManager</role>
+			<role-hint>heartbeat</role-hint>
+			<implementation>com.dianping.cat.report.DefaultReportManager</implementation>
+			<configuration>
+				<name>heartbeat</name>
+			</configuration>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.ReportDelegate</role>
+					<role-hint>heartbeat</role-hint>
+				</requirement>
 				<requirement>
 					<role>com.dianping.cat.storage.BucketManager</role>
 				</requirement>
@@ -190,9 +228,14 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.report.ReportDelegate</role>
+			<role-hint>heartbeat</role-hint>
+			<implementation>com.dianping.cat.consumer.heartbeat.HeartbeatDelegate</implementation>
+		</component>
+		<component>
 			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
 			<role-hint>dump</role-hint>
-			<implementation>com.dianping.cat.consumer.core.DumpAnalyzer</implementation>
+			<implementation>com.dianping.cat.consumer.dump.DumpAnalyzer</implementation>
 			<instantiation-strategy>per-lookup</instantiation-strategy>
 			<requirements>
 				<requirement>
@@ -201,20 +244,6 @@
 				<requirement>
 					<role>com.dianping.cat.storage.dump.MessageBucketManager</role>
 					<role-hint>local</role-hint>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
-			<role-hint>top</role-hint>
-			<implementation>com.dianping.cat.consumer.core.TopAnalyzer</implementation>
-			<instantiation-strategy>per-lookup</instantiation-strategy>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.storage.BucketManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dainping.cat.consumer.core.dal.ReportDao</role>
 				</requirement>
 			</requirements>
 		</component>

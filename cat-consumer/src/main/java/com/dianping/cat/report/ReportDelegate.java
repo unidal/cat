@@ -7,7 +7,7 @@ public interface ReportDelegate<T> {
 
 	public void beforeSave(Map<String, T> reports);
 
-	public String buildXml(T report);
+	public String buildXml(T report, Object... creterias);
 
 	public String getDomain(T report);
 
@@ -15,5 +15,8 @@ public interface ReportDelegate<T> {
 
 	public T mergeReport(T old, T other);
 
+	public T pack(T report, Map<String, String> properties);
+
 	public T parseXml(String xml) throws Exception;
+
 }

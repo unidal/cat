@@ -1,6 +1,6 @@
 package com.dianping.cat.report.page.model.event;
 
-import com.dianping.cat.consumer.core.EventStatisticsComputer;
+import com.dianping.cat.consumer.event.EventStatisticsComputer;
 import com.dianping.cat.consumer.event.model.entity.EventName;
 import com.dianping.cat.consumer.event.model.entity.EventReport;
 import com.dianping.cat.consumer.event.model.entity.EventType;

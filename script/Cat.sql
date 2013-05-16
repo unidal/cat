@@ -94,7 +94,7 @@ CREATE TABLE `report` (
   `ip` varchar(20) DEFAULT NULL COMMENT '报表来自于哪台机器',
   `domain` varchar(50) NOT NULL,
   `period` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '报表时间段',
-  `headers` text NOT NULL,  
+  `environment` text NOT NULL,  
   `content` longtext NULL,
   `binary_content` longblob NULL,
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '报表创建时间',

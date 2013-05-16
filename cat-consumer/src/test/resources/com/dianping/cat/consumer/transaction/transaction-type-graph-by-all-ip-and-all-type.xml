@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transaction-report domain="Cat" startTime="2013-05-11 09:00:00" endTime="2013-05-11 09:59:59">
+   <ip>192.168.10.124</ip>
+   <ip>192.168.10.125</ip>
+   <ip>192.168.10.126</ip>
+   <machine ip="All">
+      <type id="All" totalCount="0" failCount="0" failPercent="0.00" min="8.64E7" max="-1.0" avg="0.0" sum="0.0" sum2="0.0" std="0.0" tps="0.00" line95Value="0.00">
+         <name id="All" totalCount="0" failCount="0" failPercent="0.00" min="8.64E7" max="-1.0" avg="0.0" sum="0.0" sum2="0.0" std="0.0" tps="0.00" line95Value="0.00">
+            <range value="35" count="445" sum="41267.435000000005" avg="92.7" fails="0"/>
+            <range value="40" count="252" sum="3591.9540000000006" avg="14.3" fails="0"/>
+            <duration value="32" count="94"/>
+            <duration value="4" count="36"/>
+            <duration value="1024" count="10"/>
+            <duration value="64" count="69"/>
+            <duration value="16" count="76"/>
+            <duration value="8" count="54"/>
+            <duration value="2" count="29"/>
+            <duration value="128" count="26"/>
+            <duration value="2048" count="3"/>
+            <duration value="4096" count="6"/>
+            <duration value="512" count="12"/>
+            <duration value="256" count="6"/>
+            <duration value="1" count="276"/>
+         </name>
+      </type>
+   </machine>
+</transaction-report>

@@ -13,6 +13,8 @@
 		<module>cat-consumer</module>
 		<module>cat-hadoop</module>
 		<module>cat-consumer-advanced</module>
+		<module>cat-basic-console</module>
+		<module>cat-dianping-console</module>
 		<module>cat-home</module>
 	</modules>
 	<dependencyManagement>
@@ -35,6 +37,11 @@
 			<dependency>
 				<groupId>com.dianping.cat</groupId>
 				<artifactId>cat-consumer-advanced</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-basic-console</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

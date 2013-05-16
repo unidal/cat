@@ -3,7 +3,6 @@ package com.dianping.cat.report;
 import static com.dianping.cat.report.ReportConstants.HOUR;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -100,14 +99,17 @@ public class DefaultReportManager<T> implements ReportManager<T>, Initializable,
 	}
 
 	@Override
-	public Map<String, T> getHourlyReports(long startTime) {
+	public T getHourlyReportForAllDomains(long startTime) {
+		T result = m_reportDelegate.makeReport(ReportConstants.ALL, startTime, HOUR);
 		Map<String, T> reports = m_map.get(startTime);
 
-		if (reports == null) {
-			return Collections.emptyMap();
-		} else {
-			return reports;
+		if (reports != null) {
+			for (T report : reports.values()) {
+				result = m_reportDelegate.mergeReport(result, report);
+			}
 		}
+
+		return result;
 	}
 
 	@Override
@@ -140,6 +142,7 @@ public class DefaultReportManager<T> implements ReportManager<T>, Initializable,
 			}
 
 			m_reportDelegate.afterLoad(reports);
+			t.setStatus(Message.SUCCESS);
 		} catch (Throwable e) {
 			t.setStatus(e);
 			Cat.logError(e);

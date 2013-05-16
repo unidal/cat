@@ -1,0 +1,158 @@
+package com.dianping.cat.build;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.unidal.dal.jdbc.datasource.JdbcDataSourceConfigurationManager;
+import org.unidal.initialization.DefaultModuleManager;
+import org.unidal.initialization.Module;
+import org.unidal.initialization.ModuleManager;
+import org.unidal.lookup.configuration.AbstractResourceConfigurator;
+import org.unidal.lookup.configuration.Component;
+
+import com.dainping.cat.consumer.core.dal.DailyReportDao;
+import com.dainping.cat.consumer.core.dal.DailygraphDao;
+import com.dainping.cat.consumer.core.dal.GraphDao;
+import com.dainping.cat.consumer.core.dal.MonthlyReportDao;
+import com.dainping.cat.consumer.core.dal.ProjectDao;
+import com.dainping.cat.consumer.core.dal.ReportDao;
+import com.dainping.cat.consumer.core.dal.TaskDao;
+import com.dainping.cat.consumer.core.dal.WeeklyReportDao;
+import com.dianping.cat.CatBasicConsoleModule;
+import com.dianping.cat.configuration.ServerConfigManager;
+import com.dianping.cat.consumer.RealtimeConsumer;
+import com.dianping.cat.message.spi.MessageConsumer;
+import com.dianping.cat.message.spi.MessageConsumerRegistry;
+import com.dianping.cat.message.spi.internal.DefaultMessageConsumerRegistry;
+import com.dianping.cat.report.graph.DefaultGraphBuilder;
+import com.dianping.cat.report.graph.DefaultValueTranslater;
+import com.dianping.cat.report.graph.GraphBuilder;
+import com.dianping.cat.report.graph.ValueTranslater;
+import com.dianping.cat.report.page.NormalizePayload;
+import com.dianping.cat.report.service.DailyReportService;
+import com.dianping.cat.report.service.HourlyReportService;
+import com.dianping.cat.report.service.MonthReportCache;
+import com.dianping.cat.report.service.MonthReportService;
+import com.dianping.cat.report.service.ReportService;
+import com.dianping.cat.report.service.WeeklyReportCache;
+import com.dianping.cat.report.service.WeeklyReportService;
+import com.dianping.cat.report.service.impl.DailyReportServiceImpl;
+import com.dianping.cat.report.service.impl.HourlyReportServiceImpl;
+import com.dianping.cat.report.service.impl.MonthReportServiceImpl;
+import com.dianping.cat.report.service.impl.ReportServiceImpl;
+import com.dianping.cat.report.service.impl.WeeklyReportServiceImpl;
+import com.dianping.cat.report.task.event.EventGraphCreator;
+import com.dianping.cat.report.task.event.EventMerger;
+import com.dianping.cat.report.task.event.EventReportBuilder;
+import com.dianping.cat.report.task.heartbeat.HeartbeatGraphCreator;
+import com.dianping.cat.report.task.heartbeat.HeartbeatMerger;
+import com.dianping.cat.report.task.heartbeat.HeartbeatReportBuilder;
+import com.dianping.cat.report.task.problem.ProblemGraphCreator;
+import com.dianping.cat.report.task.problem.ProblemMerger;
+import com.dianping.cat.report.task.problem.ProblemReportBuilder;
+import com.dianping.cat.report.task.spi.ReportFacade;
+import com.dianping.cat.report.task.thread.DefaultTaskConsumer;
+import com.dianping.cat.report.task.thread.TaskProducer;
+import com.dianping.cat.report.task.transaction.TransactionGraphCreator;
+import com.dianping.cat.report.task.transaction.TransactionMerger;
+import com.dianping.cat.report.task.transaction.TransactionReportBuilder;
+import com.dianping.cat.report.view.DomainNavManager;
+
+public class ComponentsConfigurator extends AbstractResourceConfigurator {
+	public static void main(String[] args) {
+		generatePlexusComponentsXmlFile(new ComponentsConfigurator());
+	}
+
+	@Override
+	public List<Component> defineComponents() {
+		List<Component> all = new ArrayList<Component>();
+
+		all.add(C(MessageConsumerRegistry.class, DefaultMessageConsumerRegistry.class) //
+		      .req(MessageConsumer.class, new String[] { RealtimeConsumer.ID }, "m_consumers"));
+
+		all.add(C(ValueTranslater.class, DefaultValueTranslater.class));
+		all.add(C(GraphBuilder.class, DefaultGraphBuilder.class) //
+		      .req(ValueTranslater.class));
+
+		all.add(C(DefaultTaskConsumer.class) //
+		      .req(TaskDao.class, ReportFacade.class));
+
+		all.add(C(TransactionGraphCreator.class));
+		all.add(C(EventGraphCreator.class));
+		all.add(C(ProblemGraphCreator.class));
+		all.add(C(HeartbeatGraphCreator.class));
+
+		all.add(C(TransactionMerger.class));
+		all.add(C(EventMerger.class));
+		all.add(C(ProblemMerger.class));
+		all.add(C(HeartbeatMerger.class));
+
+		all.add(C(TransactionReportBuilder.class) //
+		      .req(GraphDao.class, DailygraphDao.class, ReportDao.class, DailyReportDao.class, TransactionGraphCreator.class)//
+		      .req(TransactionMerger.class, WeeklyReportDao.class, MonthlyReportDao.class));
+
+		all.add(C(EventReportBuilder.class) //
+		      .req(GraphDao.class, DailygraphDao.class, ReportDao.class, DailyReportDao.class, EventGraphCreator.class,
+		            EventMerger.class)//
+		      .req(WeeklyReportDao.class, MonthlyReportDao.class));
+
+		all.add(C(ProblemReportBuilder.class) //
+		      .req(GraphDao.class, DailygraphDao.class, ReportDao.class, DailyReportDao.class, ProblemGraphCreator.class) //
+		      .req(WeeklyReportDao.class, MonthlyReportDao.class, ProblemMerger.class));
+
+		all.add(C(HeartbeatReportBuilder.class) //
+		      .req(GraphDao.class, DailygraphDao.class, ReportDao.class, DailyReportDao.class) //
+		      .req(HeartbeatGraphCreator.class, HeartbeatMerger.class, WeeklyReportDao.class, MonthlyReportDao.class));
+
+		all.add(C(TaskProducer.class, TaskProducer.class) //
+		      .req(TaskDao.class, ReportDao.class));
+
+		all.add(C(ReportFacade.class)//
+		      .req(TransactionReportBuilder.class, EventReportBuilder.class, ProblemReportBuilder.class,//
+		            HeartbeatReportBuilder.class));
+
+		all.add(C(NormalizePayload.class).req(ServerConfigManager.class));
+
+		all.add(C(Module.class, CatBasicConsoleModule.ID, CatBasicConsoleModule.class));
+		all.add(C(ModuleManager.class, DefaultModuleManager.class) //
+		      .config(E("topLevelModules").value(CatBasicConsoleModule.ID)));
+
+		all.add(C(DomainNavManager.class) //
+				.req(ProjectDao.class, ServerConfigManager.class));
+
+		all.add(C(HourlyReportService.class, HourlyReportServiceImpl.class) //
+		      .req(ReportDao.class));
+
+		all.add(C(DailyReportService.class, DailyReportServiceImpl.class)//
+		      .req(DailyReportDao.class));
+
+		all.add(C(WeeklyReportService.class, WeeklyReportServiceImpl.class)//
+		      .req(WeeklyReportDao.class));
+
+		all.add(C(MonthReportService.class, MonthReportServiceImpl.class)//
+		      .req(MonthlyReportDao.class));
+
+		all.add(C(WeeklyReportCache.class)//
+		      .req(DailyReportService.class, HourlyReportService.class, ServerConfigManager.class));
+
+		all.add(C(MonthReportCache.class)//
+		      .req(DailyReportService.class, HourlyReportService.class, ServerConfigManager.class));
+
+		all.add(C(ReportService.class, ReportServiceImpl.class)//
+		      .req(HourlyReportService.class, DailyReportService.class, WeeklyReportService.class, //
+		            MonthReportService.class, WeeklyReportCache.class, MonthReportCache.class));
+
+		// model service
+		all.addAll(new ServiceComponentConfigurator().defineComponents());
+
+		// database
+		all.add(C(JdbcDataSourceConfigurationManager.class) //
+		      .config(E("datasourceFile").value("config/datasources.xml"), //
+		            E("baseDirRef").value("CAT_HOME"), E("defaultBaseDir").value("/data/appdatas/cat"), null));
+
+		// web, please keep it last
+		all.addAll(new WebComponentConfigurator().defineComponents());
+
+		return all;
+	}
+}

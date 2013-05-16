@@ -59,6 +59,8 @@
                   </goals>
                   <configuration>
                      <manifest>
+							${basedir}/src/main/resources/META-INF/dal/model/state-report-manifest.xml,
+							${basedir}/src/main/resources/META-INF/dal/model/top-report-manifest.xml,
 							${basedir}/src/main/resources/META-INF/dal/model/sql-report-manifest.xml,
                      		${basedir}/src/main/resources/META-INF/dal/model/database-report-manifest.xml,
 							${basedir}/src/main/resources/META-INF/dal/model/cross-report-manifest.xml,

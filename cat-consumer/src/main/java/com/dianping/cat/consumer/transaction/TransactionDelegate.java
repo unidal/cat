@@ -1,22 +1,30 @@
 package com.dianping.cat.consumer.transaction;
 
 import static com.dianping.cat.report.ReportConstants.ALL;
+import static com.dianping.cat.report.ReportConstants.PROPERTY_IP;
+import static com.dianping.cat.report.ReportConstants.PROPERTY_NAME;
+import static com.dianping.cat.report.ReportConstants.PROPERTY_TYPE;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.dianping.cat.Cat;
+import com.dianping.cat.consumer.transaction.model.IFilter;
+import com.dianping.cat.consumer.transaction.model.TransactionAggregatorForMachine;
+import com.dianping.cat.consumer.transaction.model.TransactionFilterByMachine;
+import com.dianping.cat.consumer.transaction.model.TransactionFilterByName;
+import com.dianping.cat.consumer.transaction.model.TransactionFilterByType;
 import com.dianping.cat.consumer.transaction.model.entity.TransactionReport;
+import com.dianping.cat.consumer.transaction.model.transform.DefaultMaker;
 import com.dianping.cat.consumer.transaction.model.transform.DefaultSaxParser;
+import com.dianping.cat.consumer.transaction.model.transform.VisitorChain;
+import com.dianping.cat.report.BaseReportDelegate;
 import com.dianping.cat.report.ReportConstants;
-import com.dianping.cat.report.ReportDelegate;
 
-public class TransactionDelegate implements ReportDelegate<TransactionReport> {
-	@Override
-	public void afterLoad(Map<String, TransactionReport> reports) {
-	}
-
+public class TransactionDelegate extends BaseReportDelegate<TransactionReport> {
 	@Override
 	public void beforeSave(Map<String, TransactionReport> reports) {
 		for (TransactionReport report : reports.values()) {
@@ -32,12 +40,23 @@ public class TransactionDelegate implements ReportDelegate<TransactionReport> {
 	}
 
 	@Override
-	public String buildXml(TransactionReport report) {
-		report.accept(new TransactionStatisticsComputer());
+	public String buildXml(TransactionReport report, Object... creterias) {
+		if (creterias.length == 0) {
+			report.accept(new TransactionStatisticsComputer());
 
-		String xml = new TransactionReportUrlFilter().buildXml(report);
+			TransactionReportUrlFilter filter = new TransactionReportUrlFilter();
 
-		return xml;
+			return filter.buildXml(report);
+		} else {
+			int index = 0;
+			String type = (String) creterias[index++];
+			String name = (String) creterias[index++];
+			String ip = (String) creterias[index++];
+
+			TransactionReportXmlBuilder filter = new TransactionReportXmlBuilder(type, name, ip);
+
+			return filter.buildXml(report);
+		}
 	}
 
 	private TransactionReport createAggregatedTypeReport(Map<String, TransactionReport> reports) {
@@ -80,8 +99,41 @@ public class TransactionDelegate implements ReportDelegate<TransactionReport> {
 	public TransactionReport mergeReport(TransactionReport old, TransactionReport other) {
 		TransactionReportMerger merger = new TransactionReportMerger(old);
 
+		// TODO hack now
+		other.setDomain(old.getDomain());
+
 		other.accept(merger);
 		return old;
+	}
+
+	@Override
+	public TransactionReport pack(TransactionReport report, Map<String, String> properties) {
+		String ip = properties.get(PROPERTY_IP);
+		String type = properties.get(PROPERTY_TYPE);
+		String name = properties.get(PROPERTY_NAME);
+		List<IFilter> filters = new ArrayList<IFilter>();
+
+		if (!isEmpty(type)) {
+			filters.add(new TransactionFilterByType(type));
+		}
+
+		if (isAll(ip)) {
+			filters.add(new TransactionAggregatorForMachine());
+		} else {
+			filters.add(new TransactionFilterByMachine(ip));
+		}
+
+		if (isEmpty(name)) {
+			filters.add(new TransactionFilterByName(null));
+		} else {
+			filters.add(new TransactionFilterByName(name));
+		}
+
+		DefaultMaker maker = new DefaultMaker();
+
+		report.accept(new VisitorChain(maker, filters));
+
+		return maker.getTransactionReport();
 	}
 
 	@Override

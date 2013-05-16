@@ -1,0 +1,24 @@
+package com.dianping.cat.report.service;
+
+import java.util.Date;
+import java.util.Set;
+
+import com.dianping.cat.consumer.event.model.entity.EventReport;
+import com.dianping.cat.consumer.heartbeat.model.entity.HeartbeatReport;
+import com.dianping.cat.consumer.problem.model.entity.ProblemReport;
+import com.dianping.cat.consumer.transaction.model.entity.TransactionReport;
+
+public interface ReportService {
+
+	public Set<String> queryAllDatabaseNames(Date start, Date end, String reportName);
+
+	public Set<String> queryAllDomainNames(Date start, Date end, String reportName);
+
+	public EventReport queryEventReport(String domain, Date start, Date end);
+
+	public HeartbeatReport queryHeartbeatReport(String domain, Date start, Date end);
+
+	public ProblemReport queryProblemReport(String domain, Date start, Date end);
+
+	public TransactionReport queryTransactionReport(String domain, Date start, Date end);
+}

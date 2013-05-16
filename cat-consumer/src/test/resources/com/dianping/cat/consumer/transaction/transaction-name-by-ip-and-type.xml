@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transaction-report domain="Cat" startTime="2013-05-11 09:00:00" endTime="2013-05-11 09:59:59">
+   <ip>192.168.10.124</ip>
+   <ip>192.168.10.125</ip>
+   <ip>192.168.10.126</ip>
+   <machine ip="192.168.10.125">
+      <type id="URL" totalCount="48" failCount="0" failPercent="0.00" min="1.87" max="3087.646" avg="0.0" sum="5984.1" sum2="10557123.0" std="0.0" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
+         <name id="model" totalCount="24" failCount="0" failPercent="0.00" min="1.87" max="817.773" avg="0.0" sum="1025.1" sum2="671858.6" std="0.0" tps="0.00" line95Value="0.00">
+            <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
+         </name>
+         <name id="t" totalCount="14" failCount="0" failPercent="0.00" min="17.657" max="3087.646" avg="0.0" sum="3815.5" sum2="9583176.1" std="0.0" tps="0.00" line95Value="0.00">
+            <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
+         </name>
+         <name id="p" totalCount="4" failCount="0" failPercent="0.00" min="22.821" max="279.697" avg="0.0" sum="357.0" sum2="80239.8" std="0.0" tps="0.00" line95Value="0.00">
+            <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
+         </name>
+         <name id="e" totalCount="3" failCount="0" failPercent="0.00" min="22.266" max="395.014" avg="0.0" sum="445.2" sum2="157308.7" std="0.0" tps="0.00" line95Value="0.00">
+            <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
+         </name>
+         <name id="h" totalCount="3" failCount="0" failPercent="0.00" min="36.394" max="243.878" avg="0.0" sum="341.4" sum2="64539.7" std="0.0" tps="0.00" line95Value="0.00">
+            <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
+         </name>
+      </type>
+   </machine>
+</transaction-report>

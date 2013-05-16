@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transaction-report domain="Cat" startTime="2013-05-11 09:00:00" endTime="2013-05-11 09:59:59">
+   <ip>192.168.10.124</ip>
+   <ip>192.168.10.125</ip>
+   <ip>192.168.10.126</ip>
+   <machine ip="All">
+      <type id="System" totalCount="6" failCount="0" failPercent="0.00" min="1.238" max="97.695" avg="34.8" sum="208.6" sum2="19150.0" std="44.5" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-198</successMessageUrl>
+      </type>
+      <type id="SQL" totalCount="3" failCount="0" failPercent="0.00" min="1207.738" max="1207.738" avg="1207.7" sum="3623.1" sum2="4375893.3" std="9.6" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-208</successMessageUrl>
+      </type>
+      <type id="Restore" totalCount="16" failCount="0" failPercent="0.00" min="2.85" max="46.217" avg="18.6" sum="297.2" sum2="9305.8" std="15.4" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-207</successMessageUrl>
+      </type>
+      <type id="ModelService" totalCount="96" failCount="0" failPercent="0.00" min="5.555" max="865.009" avg="51.8" sum="4974.4" sum2="3013857.8" std="169.4" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
+      </type>
+      <type id="MVC" totalCount="432" failCount="0" failPercent="0.00" min="0.0060" max="3070.182" avg="41.2" sum="17803.5" sum2="31183149.6" std="265.5" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
+      </type>
+   </machine>
+</transaction-report>

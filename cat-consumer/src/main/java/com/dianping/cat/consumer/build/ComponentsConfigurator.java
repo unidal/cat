@@ -9,9 +9,7 @@ import org.unidal.lookup.configuration.AbstractResourceConfigurator;
 import org.unidal.lookup.configuration.Component;
 
 import com.dainping.cat.consumer.core.dal.DailyReportDao;
-import com.dainping.cat.consumer.core.dal.HostinfoDao;
 import com.dainping.cat.consumer.core.dal.MonthlyReportDao;
-import com.dainping.cat.consumer.core.dal.ProjectDao;
 import com.dainping.cat.consumer.core.dal.ReportDao;
 import com.dainping.cat.consumer.core.dal.TaskDao;
 import com.dainping.cat.consumer.core.dal.WeeklyReportDao;
@@ -21,30 +19,35 @@ import com.dianping.cat.consumer.DefaultMessageAnalyzerManager;
 import com.dianping.cat.consumer.MessageAnalyzer;
 import com.dianping.cat.consumer.MessageAnalyzerManager;
 import com.dianping.cat.consumer.RealtimeConsumer;
-import com.dianping.cat.consumer.core.DumpAnalyzer;
-import com.dianping.cat.consumer.core.EventAnalyzer;
-import com.dianping.cat.consumer.core.HeartbeatAnalyzer;
-import com.dianping.cat.consumer.core.ProblemAnalyzer;
-import com.dianping.cat.consumer.core.StateAnalyzer;
-import com.dianping.cat.consumer.core.TopAnalyzer;
-import com.dianping.cat.consumer.core.problem.DefaultProblemHandler;
-import com.dianping.cat.consumer.core.problem.LongExecutionProblemHandler;
-import com.dianping.cat.consumer.core.problem.ProblemHandler;
+import com.dianping.cat.consumer.dump.DumpAnalyzer;
+import com.dianping.cat.consumer.event.EventAnalyzer;
+import com.dianping.cat.consumer.event.EventDelegate;
+import com.dianping.cat.consumer.heartbeat.HeartbeatAnalyzer;
+import com.dianping.cat.consumer.heartbeat.HeartbeatDelegate;
+import com.dianping.cat.consumer.problem.DefaultProblemHandler;
+import com.dianping.cat.consumer.problem.LongExecutionProblemHandler;
+import com.dianping.cat.consumer.problem.ProblemAnalyzer;
+import com.dianping.cat.consumer.problem.ProblemDelegate;
+import com.dianping.cat.consumer.problem.ProblemHandler;
 import com.dianping.cat.consumer.transaction.TransactionAnalyzer;
 import com.dianping.cat.consumer.transaction.TransactionDelegate;
 import com.dianping.cat.message.spi.MessageConsumer;
-import com.dianping.cat.report.DefaultReportService;
 import com.dianping.cat.report.DefaultReportManager;
-import com.dianping.cat.report.ReportService;
-import com.dianping.cat.report.ReportManager;
+import com.dianping.cat.report.DefaultReportRepository;
 import com.dianping.cat.report.RemoteModelService;
 import com.dianping.cat.report.ReportDelegate;
+import com.dianping.cat.report.ReportManager;
+import com.dianping.cat.report.ReportRepository;
 import com.dianping.cat.status.ServerStateManager;
 import com.dianping.cat.storage.BucketManager;
 import com.dianping.cat.storage.dump.LocalMessageBucketManager;
 import com.dianping.cat.storage.dump.MessageBucketManager;
 
 public class ComponentsConfigurator extends AbstractResourceConfigurator {
+	public static void main(String[] args) {
+		generatePlexusComponentsXmlFile(new ComponentsConfigurator());
+	}
+
 	@Override
 	public List<Component> defineComponents() {
 		List<Component> all = new ArrayList<Component>();
@@ -55,39 +58,15 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		      .req(MessageAnalyzerManager.class, ServerStateManager.class));
 
 		all.add(C(RemoteModelService.class));
-		all.add(C(ReportService.class, DefaultReportService.class) //
+		all.add(C(ReportRepository.class, DefaultReportRepository.class) //
 		      .req(ServerConfigManager.class, RemoteModelService.class) //
 		      .req(ReportDao.class, DailyReportDao.class, WeeklyReportDao.class, MonthlyReportDao.class));
 
 		all.addAll(defineTransactionComponents());
-
-		all.add(C(ProblemHandler.class, DefaultProblemHandler.ID, DefaultProblemHandler.class)//
-		      .config(E("failureType").value("URL,SQL,Call,PigeonCall,Cache"))//
-		      .config(E("errorType").value("Error,RuntimeException,Exception")));
-
-		all.add(C(ProblemHandler.class, LongExecutionProblemHandler.ID, LongExecutionProblemHandler.class) //
-		      .req(ServerConfigManager.class));
-
-		all.add(C(MessageAnalyzer.class, ProblemAnalyzer.ID, ProblemAnalyzer.class).is(PER_LOOKUP) //
-		      .req(BucketManager.class, ReportDao.class, TaskDao.class) //
-		      .req(ProblemHandler.class, new String[] { DefaultProblemHandler.ID, LongExecutionProblemHandler.ID }, "m_handlers"));
-
-		all.add(C(MessageAnalyzer.class, EventAnalyzer.ID, EventAnalyzer.class).is(PER_LOOKUP) //
-		      .req(BucketManager.class, ReportDao.class, TaskDao.class));
-
-		all.add(C(MessageAnalyzer.class, StateAnalyzer.ID, StateAnalyzer.class).is(PER_LOOKUP)//
-		      .req(HostinfoDao.class, TaskDao.class, ReportDao.class, ProjectDao.class)//
-		      .req(BucketManager.class, ServerStateManager.class));
-
-		all.add(C(MessageAnalyzer.class, HeartbeatAnalyzer.ID, HeartbeatAnalyzer.class).is(PER_LOOKUP) //
-		      .req(BucketManager.class, ReportDao.class, TaskDao.class));
-
-		all.add(C(MessageAnalyzer.class, DumpAnalyzer.ID, DumpAnalyzer.class).is(PER_LOOKUP) //
-		      .req(ServerStateManager.class) //
-		      .req(MessageBucketManager.class, LocalMessageBucketManager.ID));
-
-		all.add(C(MessageAnalyzer.class, TopAnalyzer.ID, TopAnalyzer.class).is(PER_LOOKUP) //
-		      .req(BucketManager.class, ReportDao.class));
+		all.addAll(defineEventComponents());
+		all.addAll(defineProblemComponents());
+		all.addAll(defineHeartbeatComponents());
+		all.addAll(defineDumpComponents());
 
 		all.add(C(Module.class, CatConsumerModule.ID, CatConsumerModule.class));
 
@@ -96,8 +75,71 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		return all;
 	}
 
+	private Collection<Component> defineDumpComponents() {
+		List<Component> all = new ArrayList<Component>();
+
+		all.add(C(MessageAnalyzer.class, DumpAnalyzer.ID, DumpAnalyzer.class).is(PER_LOOKUP) //
+		      .req(ServerStateManager.class) //
+		      .req(MessageBucketManager.class, LocalMessageBucketManager.ID));
+
+		return all;
+	}
+
+	private Collection<Component> defineEventComponents() {
+		List<Component> all = new ArrayList<Component>();
+		final String ID = EventAnalyzer.ID;
+
+		all.add(C(MessageAnalyzer.class, ID, EventAnalyzer.class).is(PER_LOOKUP) //
+		      .req(ReportManager.class, ID));
+		all.add(C(ReportManager.class, ID, DefaultReportManager.class) //
+		      .req(ReportDelegate.class, ID) //
+		      .req(BucketManager.class, ReportDao.class, TaskDao.class) //
+		      .config(E("name").value(ID)));
+		all.add(C(ReportDelegate.class, ID, EventDelegate.class));
+
+		return all;
+	}
+
+	private Collection<Component> defineHeartbeatComponents() {
+		List<Component> all = new ArrayList<Component>();
+		final String ID = HeartbeatAnalyzer.ID;
+
+		all.add(C(MessageAnalyzer.class, ID, HeartbeatAnalyzer.class).is(PER_LOOKUP) //
+		      .req(ReportManager.class, ID));
+		all.add(C(ReportManager.class, ID, DefaultReportManager.class) //
+		      .req(ReportDelegate.class, ID) //
+		      .req(BucketManager.class, ReportDao.class, TaskDao.class) //
+		      .config(E("name").value(ID)));
+		all.add(C(ReportDelegate.class, ID, HeartbeatDelegate.class));
+
+		return all;
+	}
+
+	private Collection<Component> defineProblemComponents() {
+		List<Component> all = new ArrayList<Component>();
+		final String ID = ProblemAnalyzer.ID;
+
+		all.add(C(MessageAnalyzer.class, ID, ProblemAnalyzer.class).is(PER_LOOKUP) //
+		      .req(ReportManager.class, ID) //
+		      .req(ProblemHandler.class, new String[] { DefaultProblemHandler.ID, LongExecutionProblemHandler.ID }, "m_handlers"));
+		all.add(C(ReportManager.class, ID, DefaultReportManager.class) //
+		      .req(ReportDelegate.class, ID) //
+		      .req(BucketManager.class, ReportDao.class, TaskDao.class) //
+		      .config(E("name").value(ID)));
+		all.add(C(ReportDelegate.class, ID, ProblemDelegate.class));
+
+		all.add(C(ProblemHandler.class, DefaultProblemHandler.ID, DefaultProblemHandler.class)//
+		      .config(E("failureType").value("URL,SQL,Call,PigeonCall,Cache"))//
+		      .config(E("errorType").value("Error,RuntimeException,Exception")));
+
+		all.add(C(ProblemHandler.class, LongExecutionProblemHandler.ID, LongExecutionProblemHandler.class) //
+		      .req(ServerConfigManager.class));
+
+		return all;
+	}
+
 	private Collection<Component> defineTransactionComponents() {
-		final List<Component> all = new ArrayList<Component>();
+		List<Component> all = new ArrayList<Component>();
 		final String ID = TransactionAnalyzer.ID;
 
 		all.add(C(MessageAnalyzer.class, ID, TransactionAnalyzer.class).is(PER_LOOKUP) //
@@ -109,9 +151,5 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		all.add(C(ReportDelegate.class, ID, TransactionDelegate.class));
 
 		return all;
-	}
-
-	public static void main(String[] args) {
-		generatePlexusComponentsXmlFile(new ComponentsConfigurator());
 	}
 }

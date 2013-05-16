@@ -9,7 +9,7 @@ public interface ReportManager<T> {
 
 	public T getHourlyReport(long startTime, String domain, boolean createIfNotExist);
 
-	public Map<String, T> getHourlyReports(long startTime);
+	public T getHourlyReportForAllDomains(long startTime);
 
 	public Map<String, T> loadHourlyReports(long startTime, StoragePolicy policy);
 

@@ -73,8 +73,9 @@ public class ModelRequest {
 		}
 	}
 
-	public void setReportName(String reportName) {
+	public ModelRequest setReportName(String reportName) {
 		m_reportName = reportName;
+		return this;
 	}
 
 	public ModelRequest setProperty(String name, String value) {

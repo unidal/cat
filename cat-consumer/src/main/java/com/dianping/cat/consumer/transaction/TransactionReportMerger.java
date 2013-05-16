@@ -10,8 +10,15 @@ import com.dianping.cat.consumer.transaction.model.transform.DefaultMerger;
 import com.dianping.cat.report.ReportConstants;
 
 public class TransactionReportMerger extends DefaultMerger {
+	private TransactionReport m_transactionReport;
+
 	public TransactionReportMerger(TransactionReport transactionReport) {
-		super(transactionReport);
+		m_transactionReport = transactionReport;
+		getObjects().push(transactionReport);
+	}
+
+	public TransactionReport getTransactionReport() {
+		return m_transactionReport;
 	}
 
 	@Override
@@ -135,12 +142,5 @@ public class TransactionReportMerger extends DefaultMerger {
 		} else {
 			return Math.sqrt(value);
 		}
-	}
-
-	@Override
-	public void visitTransactionReport(TransactionReport transactionReport) {
-		super.visitTransactionReport(transactionReport);
-		getTransactionReport().getDomainNames().addAll(transactionReport.getDomainNames());
-		getTransactionReport().getIps().addAll(transactionReport.getIps());
 	}
 }

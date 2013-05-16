@@ -20,9 +20,6 @@ import org.unidal.lookup.annotation.Inject;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.CatConstants;
-import com.dianping.cat.consumer.core.ProblemAnalyzer;
-import com.dianping.cat.consumer.core.TopAnalyzer;
-import com.dianping.cat.consumer.transaction.TransactionAnalyzer;
 import com.dianping.cat.message.Message;
 import com.dianping.cat.message.MessageProducer;
 import com.dianping.cat.message.Transaction;
@@ -181,16 +178,16 @@ public class RealtimeConsumer extends ContainerHolder implements MessageConsumer
 				task.enableLogging(m_logger);
 				m_tasks.add(task);
 			}
-
-			// hack for dependency
-			MessageAnalyzer top = analyzers.get(TopAnalyzer.ID);
-			MessageAnalyzer transaction = analyzers.get(TransactionAnalyzer.ID);
-			MessageAnalyzer problem = analyzers.get(ProblemAnalyzer.ID);
-
-			if (top != null) {
-				((TopAnalyzer) top).setTransactionAnalyzer((TransactionAnalyzer) transaction);
-				((TopAnalyzer) top).setProblemAnalyzer((ProblemAnalyzer) problem);
-			}
+//
+//			// hack for dependency
+//			MessageAnalyzer top = analyzers.get(TopAnalyzer.ID);
+//			MessageAnalyzer transaction = analyzers.get(TransactionAnalyzer.ID);
+//			MessageAnalyzer problem = analyzers.get(ProblemAnalyzer.ID);
+//
+//			if (top != null) {
+//				((TopAnalyzer) top).setTransactionAnalyzer((TransactionAnalyzer) transaction);
+//				((TopAnalyzer) top).setProblemAnalyzer((ProblemAnalyzer) problem);
+//			}
 		}
 
 		public void distribute(MessageTree tree) {
