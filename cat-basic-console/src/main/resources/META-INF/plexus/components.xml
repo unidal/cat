@@ -648,9 +648,6 @@
 					<role>com.dianping.cat.report.service.ReportService</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.report.page.transaction.TransactionMergeManager</role>
-				</requirement>
-				<requirement>
 					<role>com.dianping.cat.report.page.NormalizePayload</role>
 				</requirement>
 				<requirement>
@@ -682,10 +679,6 @@
 		<component>
 			<role>com.dianping.cat.report.page.transaction.XmlViewer</role>
 			<implementation>com.dianping.cat.report.page.transaction.XmlViewer</implementation>
-		</component>
-		<component>
-			<role>com.dianping.cat.report.page.transaction.TransactionMergeManager</role>
-			<implementation>com.dianping.cat.report.page.transaction.TransactionMergeManager</implementation>
 		</component>
 		<component>
 			<role>com.dianping.cat.report.page.event.Handler</role>

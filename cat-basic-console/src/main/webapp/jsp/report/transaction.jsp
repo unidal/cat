@@ -20,6 +20,7 @@
 <res:useJs value="${res.js.local['jquery-1.7.1.js']}" target="head-js"/>
 <res:useJs value="${res.js.local['flotr2_js']}" target="head-js"/>
 </br>
+
 <table class="machines">
 	<tr style="text-align:left">
 		<th>Machines: &nbsp;[&nbsp; <c:choose>
@@ -58,25 +59,29 @@
 			<th class="right"><a href="?domain=${model.domain}&date=${model.date}&sort=avg">Avg</a>(ms)</th>
 			<th class="right"><a href="?domain=${model.domain}&date=${model.date}&sort=95line">95Line</a>(ms)</th>
 			<th class="right">Std(ms)</th><th class="right">QPS</th></tr>
-			<c:forEach var="item" items="${model.displayTypeReport.results}" varStatus="status">
-				<c:set var="e" value="${item.detail}"/>
-				<c:set var="lastIndex" value="${status.index}"/>
-				<tr class="${status.index mod 2 != 0 ? 'odd' : 'even'}">
-					<td style="text-align:left"><a href="?op=graphs&domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${item.type}" class="graph_link" data-status="${status.index}">[:: show ::]</a>
-					&nbsp;&nbsp;&nbsp;<a href="?domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${item.type}">${item.type}</a></td>
-					<td>${w:format(e.totalCount,'#,###,###,###,##0')}</td>
-					<td>${e.failCount}</td>
-					<td>${w:format(e.failPercent/100,'0.0000%')}</td>
-					<td><a href="${model.logViewBaseUri}/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}">Log View</a></td>
-					
-					<td>${w:format(e.min,'0.#')}</td>
-					<td>${w:format(e.max,'0.#')}</td>
-					<td>${w:format(e.avg,'0.0')}</td>
-					<td>${w:format(e.line95Value,'0.0')}</td>
-					<td>${w:format(e.std,'0.0')}</td>
-					<td>${w:format(e.tps,'0.0')}</td>
-				</tr>
-				<tr class="graphs"><td colspan="11"><div id="${status.index}" style="display:none"></div></td></tr>
+			<c:forEach var="machine" items="${model.report.machines}">
+				<c:forEach var="type" items="${machine.value.types}" varStatus="status">
+					<c:set var="e" value="${type.value}"/>
+					<c:set var="lastIndex" value="${status.index}"/>
+					<tr class="${status.index mod 2 != 0 ? 'odd' : 'even'}">
+						<td style="text-align:left">
+							<a href="?op=graphs&domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${e.id}" class="graph_link" data-status="${status.index}">[:: show ::]</a>
+							<a href="?domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${type.key}">${e.id}</a>
+						</td>
+						<td>${w:format(e.totalCount,'#,###,###,###,##0')}</td>
+						<td>${e.failCount}</td>
+						<td>${w:format(e.failPercent/100,'0.0000%')}</td>
+						<td><a href="${model.logViewBaseUri}/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}">Log View</a></td>
+						
+						<td>${w:format(e.min,'0.#')}</td>
+						<td>${w:format(e.max,'0.#')}</td>
+						<td>${w:format(e.avg,'0.0')}</td>
+						<td>${w:format(e.line95Value,'0.0')}</td>
+						<td>${w:format(e.std,'0.0')}</td>
+						<td>${w:format(e.tps,'0.0')}</td>
+					</tr>
+					<tr class="graphs"><td colspan="11"><div id="${status.index}" style="display:none"></div></td></tr>
+				</c:forEach>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
@@ -85,8 +90,7 @@
 			支持多个字符串查询，例如sql|url|task，查询结果为包含任一sql、url、task的列。
 			</th></tr>
 			<tr>
-			<th><a href="?op=graphs&domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}" class="graph_link" data-status="-1">[:: show ::]</a>
-			<a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=type&queryname=${model.queryName}">Name</a></th>
+			<th><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=type&queryname=${model.queryName}">Name</a></th>
 			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">Total Count</a></th>
 			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=failure&queryname=${model.queryName}">Failure Count</a></th>
 			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=failurePercent&queryname=${model.queryName}">Failure%</a></th>
@@ -97,30 +101,38 @@
 			<th class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">QPS</a></th>
 			<th class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">Percent%</a></th></tr>
 			<tr class="graphs"><td colspan="12"><div id="-1" style="display:none"></div></td></tr>
-			<c:forEach var="item" items="${model.displayNameReport.results}" varStatus="status">
-				<c:set var="e" value="${item.detail}"/>
-				<c:set var="lastIndex" value="${status.index}"/>
-				<tr class="${status.index mod 2 != 0 ? 'odd' : 'even'}">
-					<td class="longText" style="text-align:left;white-space:normal">
-					<c:choose>
-					<c:when test="${status.index > 0}">
-					<a href="?op=graphs&domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&name=${e.id}" class="graph_link" data-status="${status.index}">[:: show ::]</a> 
-					</c:when>
-					</c:choose>
-					${w:shorten(e.id, 120)}</td>
-					<td>${w:format(e.totalCount,'#,###,###,###,##0')}</td>
-					<td>${e.failCount}</td>
-					<td>${w:format(e.failPercent/100,'0.0000%')}</td>
-					<td><a href="${model.logViewBaseUri}/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}">Log View</a></td>
-					<td>${w:format(e.min,'0.#')}</td>
-					<td>${w:format(e.max,'0.#')}</td>
-					<td>${w:format(e.avg,'0.0')}</td>
-					<td>${w:format(e.line95Value,'0.0')}</td>
-					<td>${w:format(e.std,'0.0')}</td>
-					<td>${w:format(e.tps,'0.0')}</td>
-					<td>${w:format(e.totalPercent,'0.00%')}</td>
-				</tr>
-				<tr class="graphs"><td colspan="11"><div id="${status.index}" style="display:none"></div></td></tr>
+			<c:forEach var="machine" items="${model.report.machines}">
+				<c:forEach var="type" items="${machine.value.types}">
+					<c:forEach var="name" items="${type.value.names}" varStatus="status">
+						<c:set var="e" value="${name.value}"/>
+						<c:set var="lastIndex" value="${status.index}"/>
+						<tr class="${status.index mod 2 != 0 ? 'odd' : 'even'}">
+							<td class="longText" style="text-align:left;white-space:normal">
+								<c:choose>
+									<c:when test="${status.index eq 0}">
+										<a href="?op=graphs&domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}" class="graph_link" data-status="${status.index}">[:: show ::]</a>
+									</c:when>
+									<c:otherwise>
+										<a href="?op=graphs&domain=${report.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&name=${e.id}" class="graph_link" data-status="${status.index}">[:: show ::]</a>
+									</c:otherwise>
+								</c:choose>
+								${w:shorten(e.id, 120)}
+							</td>
+							<td>${w:format(e.totalCount,'#,###,###,###,##0')}</td>
+							<td>${e.failCount}</td>
+							<td>${w:format(e.failPercent/100,'0.0000%')}</td>
+							<td><a href="${model.logViewBaseUri}/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}">Log View</a></td>
+							<td>${w:format(e.min,'0.#')}</td>
+							<td>${w:format(e.max,'0.#')}</td>
+							<td>${w:format(e.avg,'0.0')}</td>
+							<td>${w:format(e.line95Value,'0.0')}</td>
+							<td>${w:format(e.std,'0.0')}</td>
+							<td>${w:format(e.tps,'0.0')}</td>
+							<td>${w:format(e.totalPercent,'0.00%')}</td>
+						</tr>
+						<tr class="graphs"><td colspan="12"><div id="${status.index}" style="display:none"></div></td></tr>
+					</c:forEach>
+				</c:forEach>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>

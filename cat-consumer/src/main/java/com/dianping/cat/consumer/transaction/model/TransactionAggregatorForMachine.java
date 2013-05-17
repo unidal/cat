@@ -16,7 +16,7 @@ public class TransactionAggregatorForMachine extends BaseFilter {
 			TransactionReportMerger merger = new TransactionReportMerger(null);
 
 			m_transactionReport = new TransactionReport(transactionReport.getDomain());
-			merger.merge(m_transactionReport, transactionReport);
+			merger.mergeTransactionReport(m_transactionReport, transactionReport);
 
 			for (Machine machine : transactionReport.getMachines().values()) {
 				merger.merge(all, machine);

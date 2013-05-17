@@ -1,8 +1,11 @@
 package com.dianping.cat.consumer.transaction;
 
 import static com.dianping.cat.report.ReportConstants.ALL;
+import static com.dianping.cat.report.ReportConstants.PROPERTY_GRAPH;
 import static com.dianping.cat.report.ReportConstants.PROPERTY_IP;
 import static com.dianping.cat.report.ReportConstants.PROPERTY_NAME;
+import static com.dianping.cat.report.ReportConstants.PROPERTY_PATTERN;
+import static com.dianping.cat.report.ReportConstants.PROPERTY_SORT_BY;
 import static com.dianping.cat.report.ReportConstants.PROPERTY_TYPE;
 
 import java.util.ArrayList;
@@ -14,9 +17,15 @@ import java.util.Set;
 import com.dianping.cat.Cat;
 import com.dianping.cat.consumer.transaction.model.IFilter;
 import com.dianping.cat.consumer.transaction.model.TransactionAggregatorForMachine;
+import com.dianping.cat.consumer.transaction.model.TransactionAggregatorForName;
 import com.dianping.cat.consumer.transaction.model.TransactionFilterByMachine;
 import com.dianping.cat.consumer.transaction.model.TransactionFilterByName;
+import com.dianping.cat.consumer.transaction.model.TransactionFilterByNamePattern;
 import com.dianping.cat.consumer.transaction.model.TransactionFilterByType;
+import com.dianping.cat.consumer.transaction.model.TransactionFilterByTypePattern;
+import com.dianping.cat.consumer.transaction.model.TransactionFilterWithGraph;
+import com.dianping.cat.consumer.transaction.model.TransactionSorterByName;
+import com.dianping.cat.consumer.transaction.model.TransactionSorterByType;
 import com.dianping.cat.consumer.transaction.model.entity.TransactionReport;
 import com.dianping.cat.consumer.transaction.model.transform.DefaultMaker;
 import com.dianping.cat.consumer.transaction.model.transform.DefaultSaxParser;
@@ -41,22 +50,9 @@ public class TransactionDelegate extends BaseReportDelegate<TransactionReport> {
 
 	@Override
 	public String buildXml(TransactionReport report, Object... creterias) {
-		if (creterias.length == 0) {
-			report.accept(new TransactionStatisticsComputer());
+		report.accept(new TransactionStatisticsComputer());
 
-			TransactionReportUrlFilter filter = new TransactionReportUrlFilter();
-
-			return filter.buildXml(report);
-		} else {
-			int index = 0;
-			String type = (String) creterias[index++];
-			String name = (String) creterias[index++];
-			String ip = (String) creterias[index++];
-
-			TransactionReportXmlBuilder filter = new TransactionReportXmlBuilder(type, name, ip);
-
-			return filter.buildXml(report);
-		}
+		return report.toString();
 	}
 
 	private TransactionReport createAggregatedTypeReport(Map<String, TransactionReport> reports) {
@@ -111,22 +107,47 @@ public class TransactionDelegate extends BaseReportDelegate<TransactionReport> {
 		String ip = properties.get(PROPERTY_IP);
 		String type = properties.get(PROPERTY_TYPE);
 		String name = properties.get(PROPERTY_NAME);
+		String graph = properties.get(PROPERTY_GRAPH);
+		String pattern = properties.get(PROPERTY_PATTERN);
+		String sortBy = properties.get(PROPERTY_SORT_BY);
 		List<IFilter> filters = new ArrayList<IFilter>();
-
-		if (!isEmpty(type)) {
-			filters.add(new TransactionFilterByType(type));
-		}
 
 		if (isAll(ip)) {
 			filters.add(new TransactionAggregatorForMachine());
-		} else {
+		} else if (!isEmpty(ip)) {
 			filters.add(new TransactionFilterByMachine(ip));
 		}
 
-		if (isEmpty(name)) {
+		if (!isEmpty(type)) { // name page
+			filters.add(new TransactionFilterByType(type));
+
+			if (!isEmpty(pattern)) {
+				filters.add(new TransactionFilterByNamePattern(pattern));
+			}
+
+			if (!isEmpty(sortBy)) {
+				filters.add(new TransactionSorterByName(sortBy));
+			}
+		} else { // type page
+			if (!isEmpty(pattern)) {
+				filters.add(new TransactionFilterByTypePattern(pattern));
+			}
+
 			filters.add(new TransactionFilterByName(null));
-		} else {
+
+			if (!isEmpty(sortBy)) {
+				filters.add(new TransactionSorterByType(sortBy));
+			}
+		}
+
+		if (isAll(name)) {
+			filters.add(new TransactionAggregatorForName());
+		} else if (!isEmpty(name)) {
 			filters.add(new TransactionFilterByName(name));
+		}
+
+		if (!isTrue(graph)) {
+			filters.add(new TransactionFilterWithGraph(false));
 		}
 
 		DefaultMaker maker = new DefaultMaker();

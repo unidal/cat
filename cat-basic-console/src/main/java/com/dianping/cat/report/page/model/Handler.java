@@ -1,6 +1,9 @@
 package com.dianping.cat.report.page.model;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletException;
 
@@ -30,28 +33,41 @@ public class Handler extends ContainerHolder implements PageHandler<Context> {
 	@Inject(type = ModelService.class, value = "message-local")
 	private LocalMessageService m_messageService;
 
-	@SuppressWarnings("unchecked")
-	private String doFilter(Payload payload, Object dataModel) {
+	private Map<String, ReportDelegate<Object>> m_delegates = new ConcurrentHashMap<String, ReportDelegate<Object>>();
+
+	private Map<String, ReportManager<Object>> m_managers = new ConcurrentHashMap<String, ReportManager<Object>>();
+
+	private String doFilter(Payload payload, Object report) {
 		String name = payload.getReport();
 
 		if ("transaction".equals(name)) {
-			ReportDelegate<Object> delegate = lookup(ReportDelegate.class, name);
+			ReportDelegate<Object> delegate = lookupDelegate(name);
+			Map<String, String> properties = new HashMap<String, String>();
 
-			return delegate.buildXml(dataModel, payload.getType(), payload.getName(), payload.getIpAddress());
+			properties.put(ReportConstants.PROPERTY_IP, payload.getIpAddress());
+			properties.put(ReportConstants.PROPERTY_TYPE, payload.getType());
+			properties.put(ReportConstants.PROPERTY_NAME, payload.getName());
+			properties.put(ReportConstants.PROPERTY_GRAPH, payload.getGraph());
+			properties.put(ReportConstants.PROPERTY_PATTERN, payload.getPattern());
+			properties.put(ReportConstants.PROPERTY_SORT_BY, payload.getSortBy());
+
+			Object result = delegate.pack(report, properties);
+			
+			return delegate.buildXml(result);
 		} else if ("event".equals(name)) {
-			ReportDelegate<Object> delegate = lookup(ReportDelegate.class, name);
+			ReportDelegate<Object> delegate = lookupDelegate(name);
 
-			return delegate.buildXml(dataModel, payload.getType(), payload.getName(), payload.getIpAddress());
+			return delegate.buildXml(report, payload.getType(), payload.getName(), payload.getIpAddress());
 		} else if ("problem".equals(name)) {
-			ReportDelegate<Object> delegate = lookup(ReportDelegate.class, name);
+			ReportDelegate<Object> delegate = lookupDelegate(name);
 
-			return delegate.buildXml(dataModel, payload.getIpAddress(), payload.getType());
+			return delegate.buildXml(report, payload.getIpAddress(), payload.getType());
 		} else if ("heartbeat".equals(name)) {
-			ReportDelegate<Object> delegate = lookup(ReportDelegate.class, name);
+			ReportDelegate<Object> delegate = lookupDelegate(name);
 
-			return delegate.buildXml(dataModel, payload.getIpAddress());
+			return delegate.buildXml(report, payload.getIpAddress());
 		} else {
-			return String.valueOf(dataModel);
+			return String.valueOf(report);
 		}
 	}
 
@@ -62,7 +78,6 @@ public class Handler extends ContainerHolder implements PageHandler<Context> {
 		// display only, no action here
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@OutboundActionMeta(name = "model")
 	public void handleOutbound(Context ctx) throws ServletException, IOException {
@@ -98,14 +113,14 @@ public class Handler extends ContainerHolder implements PageHandler<Context> {
 				}
 			} else {
 				try {
-					ReportManager<Object> m_transactionManager = lookup(ReportManager.class, name);
+					ReportManager<Object> transactionManager = lookupManager(name);
 					ModelPeriod period = request.getPeriod();
 					Object report;
 
 					if (ReportConstants.ALL.equals(domain)) {
-						report = m_transactionManager.getHourlyReportForAllDomains(period.getStartTime());
+						report = transactionManager.getHourlyReportForAllDomains(period.getStartTime());
 					} else {
-						report = m_transactionManager.getHourlyReport(period.getStartTime(), domain, false);
+						report = transactionManager.getHourlyReport(period.getStartTime(), domain, false);
 					}
 
 					model.setModel(report);
@@ -121,5 +136,28 @@ public class Handler extends ContainerHolder implements PageHandler<Context> {
 		}
 
 		m_jspViewer.view(ctx, model);
+	}
+
+	@SuppressWarnings("unchecked")
+	private ReportDelegate<Object> lookupDelegate(String name) {
+		ReportDelegate<Object> delegate = m_delegates.get(name);
+
+		if (delegate == null) {
+			delegate = lookup(ReportDelegate.class, name);
+			m_delegates.put(name, delegate);
+		}
+		return delegate;
+	}
+
+	@SuppressWarnings("unchecked")
+	private ReportManager<Object> lookupManager(String name) {
+		ReportManager<Object> manager = m_managers.get(name);
+
+		if (manager == null) {
+			manager = lookup(ReportManager.class, name);
+			m_managers.put(name, manager);
+		}
+
+		return manager;
 	}
 }

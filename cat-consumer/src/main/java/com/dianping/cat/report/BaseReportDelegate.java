@@ -30,5 +30,4 @@ public abstract class BaseReportDelegate<T> implements ReportDelegate<T> {
 	public T pack(T report, Map<String, String> properties) {
 		return report;
 	}
-
 }

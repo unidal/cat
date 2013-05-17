@@ -5,9 +5,10 @@
    <ip>192.168.10.126</ip>
    <machine ip="All">
       <type id="All" totalCount="0" failCount="0" failPercent="0.00" min="8.64E7" max="-1.0" avg="0.0" sum="0.0" sum2="0.0" std="0.0" tps="0.00" line95Value="0.00">
-         <name id="All" totalCount="0" failCount="0" failPercent="0.00" min="8.64E7" max="-1.0" avg="0.0" sum="0.0" sum2="0.0" std="0.0" tps="0.00" line95Value="0.00">
-            <range value="35" count="445" sum="41267.435000000005" avg="92.7" fails="0"/>
-            <range value="40" count="252" sum="3591.9540000000006" avg="14.3" fails="0"/>
+         <name id="All" totalCount="697" failCount="0" failPercent="0.00" min="0.0060" max="3087.646" avg="64.4" sum="44859.8" sum2="70272725.2" std="310.9" tps="0.00" line95Value="0.00">
+            <successMessageUrl>Cat-c0a80a7c-380065-207</successMessageUrl>
+            <range value="35" count="445" sum="41267.8" avg="92.7" fails="0"/>
+            <range value="40" count="252" sum="3592.5" avg="14.3" fails="0"/>
             <duration value="32" count="94"/>
             <duration value="4" count="36"/>
             <duration value="1024" count="10"/>

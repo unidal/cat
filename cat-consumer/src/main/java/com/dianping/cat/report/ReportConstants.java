@@ -3,19 +3,24 @@ package com.dianping.cat.report;
 public class ReportConstants {
 	public static final String ALL = "All";
 	
+	public static final String TOTAL = "TOTAL";
+
+	public static final String PROPERTY_DATE = "date";
+
 	public static final String PROPERTY_IP = "ip";
 
 	public static final String PROPERTY_TYPE = "type";
 
 	public static final String PROPERTY_NAME = "name";
-	
-	public static final String PROPERTY_GRAPH = "graph";
 
-	public static final String PROPERTY_DATE = "date";
+	public static final String PROPERTY_GRAPH = "graph";
 	
+	public static final String PROPERTY_PATTERN = "pattern";
+	
+	public static final String PROPERTY_SORT_BY = "sortBy";
+
 	public static final String VALUE_ALL = "*";
 
-	
 	// following should be deleted
 	public static final String ALL_Domain = "All";
 

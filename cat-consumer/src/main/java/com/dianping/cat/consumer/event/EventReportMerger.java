@@ -79,14 +79,4 @@ public class EventReportMerger extends DefaultMerger {
 			old.setFailMessageUrl(other.getFailMessageUrl());
 		}
 	}
-
-	@Override
-	public void visitEventReport(EventReport eventReport) {
-		super.visitEventReport(eventReport);
-
-		EventReport report = getEventReport();
-		report.getDomainNames().addAll(eventReport.getDomainNames());
-		report.getIps().addAll(eventReport.getIps());
-	}
-
 }

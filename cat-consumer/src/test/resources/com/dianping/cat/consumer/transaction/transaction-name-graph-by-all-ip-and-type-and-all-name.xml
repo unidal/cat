@@ -7,8 +7,8 @@
       <type id="URL" totalCount="0" failCount="0" failPercent="0.00" min="8.64E7" max="-1.0" avg="0.0" sum="0.0" sum2="0.0" std="0.0" tps="0.00" line95Value="0.00">
          <name id="All" totalCount="144" failCount="0" failPercent="0.00" min="1.87" max="3087.646" avg="124.7" sum="17952.6" sum2="31671368.7" std="452.1" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="90" sum="16446.204" avg="182.7" fails="0"/>
-            <range value="40" count="54" sum="1506.1950000000002" avg="27.9" fails="0"/>
+            <range value="35" count="90" sum="16446.3" avg="182.7" fails="0"/>
+            <range value="40" count="54" sum="1506.3" avg="27.9" fails="0"/>
             <duration value="1024" count="3"/>
             <duration value="64" count="30"/>
             <duration value="16" count="30"/>

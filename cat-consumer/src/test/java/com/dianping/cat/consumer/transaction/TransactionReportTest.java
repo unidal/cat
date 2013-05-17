@@ -9,7 +9,6 @@ import org.unidal.helper.Files;
 import org.xml.sax.SAXException;
 
 import com.dianping.cat.consumer.transaction.model.IFilter;
-import com.dianping.cat.consumer.transaction.model.TransactionAggregatorForGraph;
 import com.dianping.cat.consumer.transaction.model.TransactionAggregatorForMachine;
 import com.dianping.cat.consumer.transaction.model.TransactionAggregatorForName;
 import com.dianping.cat.consumer.transaction.model.TransactionAggregatorForType;
@@ -106,8 +105,7 @@ public class TransactionReportTest {
 		checkReport("transaction-name-graph-by-all-ip-and-type-and-name.xml", //
 		      new TransactionAggregatorForMachine(), //
 		      new TransactionFilterByType("URL"), //
-		      new TransactionFilterByName("t"), //
-		      new TransactionAggregatorForGraph());
+		      new TransactionFilterByName("t"));
 	}
 
 	@Test
@@ -123,8 +121,7 @@ public class TransactionReportTest {
 		checkReport("transaction-name-graph-by-ip-and-type-and-name.xml", //
 		      new TransactionFilterByMachine("192.168.10.125"), //
 		      new TransactionFilterByType("URL"), //
-		      new TransactionFilterByName("t"), //
-		      new TransactionAggregatorForGraph());
+		      new TransactionFilterByName("t"));
 	}
 
 	@Test
@@ -166,8 +163,7 @@ public class TransactionReportTest {
 		checkReport("transaction-type-graph-by-all-ip-and-all-type.xml", //
 		      new TransactionAggregatorForMachine(), //
 		      new TransactionAggregatorForType(), //
-		      new TransactionAggregatorForName(),
-		      new TransactionAggregatorForGraph());
+		      new TransactionAggregatorForName());
 
 	}
 
@@ -184,8 +180,7 @@ public class TransactionReportTest {
 		checkReport("transaction-type-graph-by-ip-and-all-type.xml", //
 		      new TransactionFilterByMachine("192.168.10.125"), //
 		      new TransactionAggregatorForType(), //
-		      new TransactionAggregatorForName(), //
-		      new TransactionAggregatorForGraph());
+		      new TransactionAggregatorForName());
 	}
 
 	@Test
@@ -193,8 +188,7 @@ public class TransactionReportTest {
 		checkReport("transaction-type-graph-by-ip-and-type.xml", //
 		      new TransactionFilterByMachine("192.168.10.125"), //
 		      new TransactionFilterByType("URL"), //
-		      new TransactionAggregatorForName(), //
-		      new TransactionAggregatorForGraph());
+		      new TransactionAggregatorForName());
 	}
 
 	@Test

@@ -17,14 +17,26 @@ public class Payload implements ActionPayload<ReportPage, Action> {
 	@FieldMeta("ip")
 	private String m_ipAddress;
 
+	@FieldMeta("type")
+	private String m_type;
+
+	@FieldMeta("name")
+	private String m_name;
+
+	@FieldMeta("graph")
+	private String m_graph;
+	
+	@FieldMeta("pattern")
+	private String m_pattern;
+	
+	@FieldMeta("sort")
+	private String m_sortBy;
+
 	@FieldMeta("messageId")
 	private String m_messageId;
 
 	@FieldMeta("waterfall")
 	private boolean m_waterfall;
-
-	@FieldMeta("name")
-	private String m_name;
 
 	private ReportPage m_page;
 
@@ -34,9 +46,6 @@ public class Payload implements ActionPayload<ReportPage, Action> {
 
 	@FieldMeta("thread")
 	private String m_threadId;
-
-	@FieldMeta("type")
-	private String m_type;
 
 	@FieldMeta("database")
 	private String m_database;
@@ -65,6 +74,10 @@ public class Payload implements ActionPayload<ReportPage, Action> {
 		}
 	}
 
+	public String getGraph() {
+   	return m_graph;
+   }
+
 	public String getIpAddress() {
 		return m_ipAddress;
 	}
@@ -82,6 +95,10 @@ public class Payload implements ActionPayload<ReportPage, Action> {
 		return m_page;
 	}
 
+	public String getPattern() {
+	   return m_pattern;
+   }
+
 	public ModelPeriod getPeriod() {
 		if (m_path.length > 2) {
 			return ModelPeriod.getByName(m_path[2], ModelPeriod.CURRENT);
@@ -97,6 +114,10 @@ public class Payload implements ActionPayload<ReportPage, Action> {
 			return null;
 		}
 	}
+
+	public String getSortBy() {
+   	return m_sortBy;
+   }
 
 	public String getThreadId() {
 		return m_threadId;
@@ -114,26 +135,6 @@ public class Payload implements ActionPayload<ReportPage, Action> {
 		m_action = Action.getByName(action, Action.XML);
 	}
 
-	public void setChannel(String channel) {
-		m_channel = channel;
-	}
-
-	public void setDatabase(String database) {
-		m_database = database;
-	}
-
-	public void setIpAddress(String ipAddress) {
-		m_ipAddress = ipAddress;
-	}
-
-	public void setMessageId(String messageId) {
-		m_messageId = messageId;
-	}
-
-	public void setName(String name) {
-		m_name = name;
-	}
-
 	@Override
 	public void setPage(String page) {
 		m_page = ReportPage.getByName(page, ReportPage.MODEL);
@@ -145,18 +146,6 @@ public class Payload implements ActionPayload<ReportPage, Action> {
 		} else {
 			m_path = Arrays.copyOf(path, path.length);
 		}
-	}
-
-	public void setThreadId(String threadId) {
-		m_threadId = threadId;
-	}
-
-	public void setType(String type) {
-		m_type = type;
-	}
-
-	public void setWaterfall(boolean waterfall) {
-		m_waterfall = waterfall;
 	}
 
 	@Override

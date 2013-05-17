@@ -13,10 +13,6 @@ import com.dianping.cat.report.view.StringSortHelper;
 
 @ModelMeta("transaction")
 public class Model extends AbstractReportModel<Action, Context> {
-	private DisplayNames m_displayNameReport;
-
-	private DisplayTypes m_displayTypeReport;
-
 	private String m_errorTrend;
 
 	private String m_graph1;
@@ -39,7 +35,7 @@ public class Model extends AbstractReportModel<Action, Context> {
 	private String m_responseTrend;
 
 	private String m_type;
-	
+
 	private String m_pieChart;
 
 	public Model(Context ctx) {
@@ -49,14 +45,6 @@ public class Model extends AbstractReportModel<Action, Context> {
 	@Override
 	public Action getDefaultAction() {
 		return Action.HOURLY_REPORT;
-	}
-
-	public DisplayNames getDisplayNameReport() {
-		return m_displayNameReport;
-	}
-
-	public DisplayTypes getDisplayTypeReport() {
-		return m_displayTypeReport;
 	}
 
 	@Override
@@ -82,7 +70,7 @@ public class Model extends AbstractReportModel<Action, Context> {
 			return StringSortHelper.sortDomain(domainNames);
 		}
 	}
-	
+
 	public String getErrorTrend() {
 		return m_errorTrend;
 	}
@@ -139,14 +127,6 @@ public class Model extends AbstractReportModel<Action, Context> {
 		return m_type;
 	}
 
-	public void setDisplayNameReport(DisplayNames displayNameReport) {
-		m_displayNameReport = displayNameReport;
-	}
-
-	public void setDisplayTypeReport(DisplayTypes dispalyReport) {
-		m_displayTypeReport = dispalyReport;
-	}
-
 	public void setErrorTrend(String errorTrend) {
 		m_errorTrend = errorTrend;
 	}
@@ -194,5 +174,5 @@ public class Model extends AbstractReportModel<Action, Context> {
 	public void setType(String type) {
 		m_type = type;
 	}
-	
+
 }

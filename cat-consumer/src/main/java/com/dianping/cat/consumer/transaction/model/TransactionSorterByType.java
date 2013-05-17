@@ -20,12 +20,16 @@ public class TransactionSorterByType extends BaseFilter {
 		Sorters.forMap().descend().sort(machine.getTypes(), new Comparator<TransactionType>() {
 			@Override
 			public int compare(TransactionType t1, TransactionType t2) {
-				if ("type".equals(m_key)) {
-					return t1.getId().compareTo(t2.getId());
+				if ("avg".equals(m_key)) {
+					return t1.getAvg() - t2.getAvg() >= 0 ? 1 : -1;
+				} else if ("id".equals(m_key) || "type".equals(m_key) || "name".equals(m_key)) {
+					return t2.getId().compareTo(t1.getId());
 				} else if ("total".equals(m_key)) {
 					return (int) (t1.getTotalCount() - t2.getTotalCount());
-				} else if ("fail".equals(m_key)) {
+				} else if ("failure".equals(m_key) || "failurePercent".equals(m_key)) {
 					return (int) (t1.getFailCount() - t2.getFailCount());
+				} else if ("95line".equals(m_key)) {
+					return t1.getAvg() - t2.getAvg() >= 0 ? 1 : -1;
 				}
 
 				return 0;

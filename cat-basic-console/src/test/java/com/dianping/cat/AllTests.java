@@ -8,7 +8,6 @@ import com.dianping.cat.report.graph.ValueTranslaterTest;
 import com.dianping.cat.report.page.event.EventGraphDataTest;
 import com.dianping.cat.report.page.heartbeat.HeartbeatGraphDataTest;
 import com.dianping.cat.report.page.model.EventReportFilterTest;
-import com.dianping.cat.report.page.model.TransactionReportFilterTest;
 import com.dianping.cat.report.page.model.event.EventModelServiceTest;
 import com.dianping.cat.report.page.problem.ProblemGraphDataTest;
 import com.dianping.cat.report.page.problem.ProblemReportMergerTest;
@@ -43,7 +42,7 @@ EventModelServiceTest.class,
 ValueTranslaterTest.class,
 
 /* .report.page.model */
-EventReportFilterTest.class, TransactionReportFilterTest.class,
+EventReportFilterTest.class,
 
 /* . report.page.transcation */
 PayloadTest.class, TransactionReportMergerTest.class,

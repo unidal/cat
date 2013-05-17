@@ -55,6 +55,14 @@ public class PieChart {
 
 		private double number;
 
+		public Item() {
+		}
+
+		public Item(String title, double number) {
+			this.title = title;
+			this.number = number;
+		}
+
 		public String getTitle() {
 			return title;
 		}

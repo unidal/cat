@@ -6,9 +6,10 @@
    <machine ip="192.168.10.125">
       <type id="URL" totalCount="48" failCount="0" failPercent="0.00" min="1.87" max="3087.646" avg="0.0" sum="5984.1" sum2="10557123.0" std="0.0" tps="0.00" line95Value="0.00">
          <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-         <name id="t" totalCount="0" failCount="0" failPercent="0.00" min="8.64E7" max="-1.0" avg="0.0" sum="0.0" sum2="0.0" std="0.0" tps="0.00" line95Value="0.00">
-            <range value="35" count="8" sum="3499.516" avg="437.4" fails="0"/>
-            <range value="40" count="6" sum="316.005" avg="52.7" fails="0"/>
+         <name id="t" totalCount="14" failCount="0" failPercent="0.00" min="17.657" max="3087.646" avg="0.0" sum="3815.5" sum2="9583176.1" std="0.0" tps="0.00" line95Value="0.00">
+            <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
+            <range value="35" count="8" sum="3499.5" avg="0.0" fails="0"/>
+            <range value="40" count="6" sum="316.0" avg="0.0" fails="0"/>
             <duration value="4096" count="1"/>
             <duration value="128" count="4"/>
             <duration value="64" count="7"/>

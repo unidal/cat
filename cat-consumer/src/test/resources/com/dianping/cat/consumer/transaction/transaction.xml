@@ -8,25 +8,25 @@
          <successMessageUrl>Cat-c0a80a7c-380065-207</successMessageUrl>
          <name id="transaction" totalCount="2" failCount="0" failPercent="0.00" min="2.85" max="28.806" avg="0.0" sum="31.7" sum2="837.9" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-207</successMessageUrl>
-            <range value="35" count="2" sum="31.656000000000002" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="31.7" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="4" count="1"/>
          </name>
          <name id="problem" totalCount="2" failCount="0" failPercent="0.00" min="3.988" max="24.791" avg="0.0" sum="28.8" sum2="630.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-205</successMessageUrl>
-            <range value="35" count="2" sum="28.779" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="28.8" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="4" count="1"/>
          </name>
          <name id="heartbeat" totalCount="2" failCount="0" failPercent="0.00" min="3.52" max="46.217" avg="0.0" sum="49.7" sum2="2148.4" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-203</successMessageUrl>
-            <range value="35" count="2" sum="49.737" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="49.7" avg="0.0" fails="0"/>
             <duration value="64" count="1"/>
             <duration value="4" count="1"/>
          </name>
          <name id="event" totalCount="2" failCount="0" failPercent="0.00" min="7.049" max="31.407" avg="0.0" sum="38.5" sum2="1036.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-201</successMessageUrl>
-            <range value="35" count="2" sum="38.456" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="38.5" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="8" count="1"/>
          </name>
@@ -35,12 +35,12 @@
          <successMessageUrl>Cat-c0a80a7c-380065-198</successMessageUrl>
          <name id="Reboot" totalCount="1" failCount="0" failPercent="0.00" min="1.238" max="1.238" avg="0.0" sum="1.2" sum2="1.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-198</successMessageUrl>
-            <range value="35" count="1" sum="1.238" avg="0.0" fails="0"/>
+            <range value="35" count="1" sum="1.2" avg="0.0" fails="0"/>
             <duration value="2" count="1"/>
          </name>
          <name id="Status" totalCount="2" failCount="0" failPercent="0.00" min="5.403" max="97.695" avg="0.0" sum="103.1" sum2="9573.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-199</successMessageUrl>
-            <range value="35" count="2" sum="103.098" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="103.1" avg="0.0" fails="0"/>
             <duration value="128" count="1"/>
             <duration value="8" count="1"/>
          </name>
@@ -49,7 +49,7 @@
          <successMessageUrl>Cat-c0a80a7c-380065-208</successMessageUrl>
          <name id="project.findAll" totalCount="1" failCount="0" failPercent="0.00" min="1207.738" max="1207.738" avg="0.0" sum="1207.7" sum2="1458631.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-208</successMessageUrl>
-            <range value="35" count="1" sum="1207.738" avg="0.0" fails="0"/>
+            <range value="35" count="1" sum="1207.7" avg="0.0" fails="0"/>
             <duration value="2048" count="1"/>
          </name>
       </type>
@@ -57,8 +57,8 @@
          <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
          <name id="model" totalCount="24" failCount="0" failPercent="0.00" min="1.87" max="817.773" avg="0.0" sum="1025.1" sum2="671858.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="15" sum="951.294" avg="0.0" fails="0"/>
-            <range value="40" count="9" sum="73.766" avg="0.0" fails="0"/>
+            <range value="35" count="15" sum="951.3" avg="0.0" fails="0"/>
+            <range value="40" count="9" sum="73.8" avg="0.0" fails="0"/>
             <duration value="1024" count="1"/>
             <duration value="64" count="1"/>
             <duration value="16" count="10"/>
@@ -69,8 +69,8 @@
          </name>
          <name id="t" totalCount="14" failCount="0" failPercent="0.00" min="17.657" max="3087.646" avg="0.0" sum="3815.5" sum2="9583176.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
-            <range value="35" count="8" sum="3499.516" avg="0.0" fails="0"/>
-            <range value="40" count="6" sum="316.005" avg="0.0" fails="0"/>
+            <range value="35" count="8" sum="3499.5" avg="0.0" fails="0"/>
+            <range value="40" count="6" sum="316.0" avg="0.0" fails="0"/>
             <duration value="4096" count="1"/>
             <duration value="128" count="4"/>
             <duration value="64" count="7"/>
@@ -78,22 +78,22 @@
          </name>
          <name id="e" totalCount="3" failCount="0" failPercent="0.00" min="22.266" max="395.014" avg="0.0" sum="445.2" sum2="157308.7" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
-            <range value="35" count="2" sum="422.887" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="22.266" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="422.9" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="22.3" avg="0.0" fails="0"/>
             <duration value="512" count="1"/>
             <duration value="32" count="2"/>
          </name>
          <name id="p" totalCount="4" failCount="0" failPercent="0.00" min="22.821" max="279.697" avg="0.0" sum="357.0" sum2="80239.8" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
-            <range value="35" count="3" sum="328.09900000000005" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="28.883" avg="0.0" fails="0"/>
+            <range value="35" count="3" sum="328.1" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="28.9" avg="0.0" fails="0"/>
             <duration value="512" count="1"/>
             <duration value="32" count="3"/>
          </name>
          <name id="h" totalCount="3" failCount="0" failPercent="0.00" min="36.394" max="243.878" avg="0.0" sum="341.4" sum2="64539.7" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
-            <range value="35" count="2" sum="280.272" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="61.145" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="280.3" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="61.1" avg="0.0" fails="0"/>
             <duration value="256" count="1"/>
             <duration value="64" count="2"/>
          </name>
@@ -102,22 +102,22 @@
          <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
          <name id="InboundPhase" totalCount="48" failCount="0" failPercent="0.00" min="0.117" max="17.141" avg="0.0" sum="35.1" sum2="304.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="27.059000000000005" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="7.9990000000000006" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="27.1" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="8.0" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="2" count="3"/>
             <duration value="1" count="44"/>
          </name>
          <name id="TransitionPhase" totalCount="48" failCount="0" failPercent="0.00" min="0.0060" max="0.337" avg="0.0" sum="0.8" sum2="0.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="0.6510000000000001" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="0.15800000000000003" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="0.7" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="0.2" avg="0.0" fails="0"/>
             <duration value="1" count="48"/>
          </name>
          <name id="OutboundPhase" totalCount="48" failCount="0" failPercent="0.00" min="1.572" max="3070.182" avg="0.0" sum="5898.6" sum2="10394078.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="5407.831000000002" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="490.7680000000001" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="5407.8" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="490.8" avg="0.0" fails="0"/>
             <duration value="1024" count="1"/>
             <duration value="4096" count="1"/>
             <duration value="64" count="9"/>
@@ -135,8 +135,8 @@
          <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
          <name id="transaction" totalCount="28" failCount="0" failPercent="0.00" min="12.527" max="865.009" avg="0.0" sum="2339.5" sum2="1505763.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
-            <range value="35" count="16" sum="2082.9700000000003" avg="0.0" fails="0"/>
-            <range value="40" count="12" sum="256.49800000000005" avg="0.0" fails="0"/>
+            <range value="35" count="16" sum="2083.0" avg="0.0" fails="0"/>
+            <range value="40" count="12" sum="256.5" avg="0.0" fails="0"/>
             <duration value="1024" count="2"/>
             <duration value="64" count="5"/>
             <duration value="32" count="17"/>
@@ -144,42 +144,42 @@
          </name>
          <name id="CompositeEventService" totalCount="3" failCount="0" failPercent="0.00" min="6.883" max="11.878" avg="0.0" sum="26.1" sum2="243.0" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
-            <range value="35" count="2" sum="18.761" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="7.387" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="18.8" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="7.4" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="2"/>
          </name>
          <name id="RemoteEventService" totalCount="3" failCount="0" failPercent="0.00" min="6.154" max="10.116" avg="0.0" sum="23.1" sum2="186.3" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
-            <range value="35" count="2" sum="16.27" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="6.787" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="16.3" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="6.8" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="2"/>
          </name>
          <name id="CompositeProblemService" totalCount="4" failCount="0" failPercent="0.00" min="6.153" max="11.545" avg="0.0" sum="31.1" sum2="261.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
-            <range value="35" count="3" sum="24.97" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="6.153" avg="0.0" fails="0"/>
+            <range value="35" count="3" sum="25.0" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="6.2" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="3"/>
          </name>
          <name id="RemoteProblemService" totalCount="4" failCount="0" failPercent="0.00" min="5.555" max="10.33" avg="0.0" sum="27.6" sum2="206.2" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
-            <range value="35" count="3" sum="22.037" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="5.555" avg="0.0" fails="0"/>
+            <range value="35" count="3" sum="22.0" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="5.6" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="3"/>
          </name>
          <name id="CompositeHeartbeatService" totalCount="3" failCount="0" failPercent="0.00" min="6.343" max="7.94" avg="0.0" sum="20.8" sum2="145.4" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
-            <range value="35" count="2" sum="14.43" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="6.343" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="14.4" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="6.3" avg="0.0" fails="0"/>
             <duration value="8" count="3"/>
          </name>
          <name id="RemoteHeartbeatService" totalCount="3" failCount="0" failPercent="0.00" min="5.769" max="7.39" avg="0.0" sum="19.1" sum2="122.8" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
-            <range value="35" count="2" sum="13.295" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="5.769" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="13.3" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="5.8" avg="0.0" fails="0"/>
             <duration value="8" count="3"/>
          </name>
       </type>
@@ -189,12 +189,12 @@
          <successMessageUrl>Cat-c0a80a7c-380065-198</successMessageUrl>
          <name id="Reboot" totalCount="1" failCount="0" failPercent="0.00" min="1.238" max="1.238" avg="0.0" sum="1.2" sum2="1.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-198</successMessageUrl>
-            <range value="35" count="1" sum="1.238" avg="0.0" fails="0"/>
+            <range value="35" count="1" sum="1.2" avg="0.0" fails="0"/>
             <duration value="2" count="1"/>
          </name>
          <name id="Status" totalCount="2" failCount="0" failPercent="0.00" min="5.403" max="97.695" avg="0.0" sum="103.1" sum2="9573.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-199</successMessageUrl>
-            <range value="35" count="2" sum="103.098" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="103.1" avg="0.0" fails="0"/>
             <duration value="128" count="1"/>
             <duration value="8" count="1"/>
          </name>
@@ -203,7 +203,7 @@
          <successMessageUrl>Cat-c0a80a7c-380065-208</successMessageUrl>
          <name id="project.findAll" totalCount="1" failCount="0" failPercent="0.00" min="1207.738" max="1207.738" avg="0.0" sum="1207.7" sum2="1458631.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-208</successMessageUrl>
-            <range value="35" count="1" sum="1207.738" avg="0.0" fails="0"/>
+            <range value="35" count="1" sum="1207.7" avg="0.0" fails="0"/>
             <duration value="2048" count="1"/>
          </name>
       </type>
@@ -211,8 +211,8 @@
          <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
          <name id="model" totalCount="24" failCount="0" failPercent="0.00" min="1.87" max="817.773" avg="0.0" sum="1025.1" sum2="671858.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="15" sum="951.294" avg="0.0" fails="0"/>
-            <range value="40" count="9" sum="73.766" avg="0.0" fails="0"/>
+            <range value="35" count="15" sum="951.3" avg="0.0" fails="0"/>
+            <range value="40" count="9" sum="73.8" avg="0.0" fails="0"/>
             <duration value="1024" count="1"/>
             <duration value="64" count="1"/>
             <duration value="16" count="10"/>
@@ -223,8 +223,8 @@
          </name>
          <name id="t" totalCount="14" failCount="0" failPercent="0.00" min="17.657" max="3087.646" avg="0.0" sum="3815.5" sum2="9583176.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
-            <range value="35" count="8" sum="3499.516" avg="0.0" fails="0"/>
-            <range value="40" count="6" sum="316.005" avg="0.0" fails="0"/>
+            <range value="35" count="8" sum="3499.5" avg="0.0" fails="0"/>
+            <range value="40" count="6" sum="316.0" avg="0.0" fails="0"/>
             <duration value="4096" count="1"/>
             <duration value="128" count="4"/>
             <duration value="64" count="7"/>
@@ -232,22 +232,22 @@
          </name>
          <name id="e" totalCount="3" failCount="0" failPercent="0.00" min="22.266" max="395.014" avg="0.0" sum="445.2" sum2="157308.7" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
-            <range value="35" count="2" sum="422.887" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="22.266" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="422.9" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="22.3" avg="0.0" fails="0"/>
             <duration value="512" count="1"/>
             <duration value="32" count="2"/>
          </name>
          <name id="p" totalCount="4" failCount="0" failPercent="0.00" min="22.821" max="279.697" avg="0.0" sum="357.0" sum2="80239.8" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
-            <range value="35" count="3" sum="328.09900000000005" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="28.883" avg="0.0" fails="0"/>
+            <range value="35" count="3" sum="328.1" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="28.9" avg="0.0" fails="0"/>
             <duration value="512" count="1"/>
             <duration value="32" count="3"/>
          </name>
          <name id="h" totalCount="3" failCount="0" failPercent="0.00" min="36.394" max="243.878" avg="0.0" sum="341.4" sum2="64539.7" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
-            <range value="35" count="2" sum="280.272" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="61.145" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="280.3" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="61.1" avg="0.0" fails="0"/>
             <duration value="256" count="1"/>
             <duration value="64" count="2"/>
          </name>
@@ -256,22 +256,22 @@
          <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
          <name id="InboundPhase" totalCount="48" failCount="0" failPercent="0.00" min="0.117" max="17.141" avg="0.0" sum="35.1" sum2="304.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="27.059000000000005" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="7.9990000000000006" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="27.1" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="8.0" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="2" count="3"/>
             <duration value="1" count="44"/>
          </name>
          <name id="TransitionPhase" totalCount="48" failCount="0" failPercent="0.00" min="0.0060" max="0.337" avg="0.0" sum="0.8" sum2="0.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="0.6510000000000001" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="0.15800000000000003" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="0.7" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="0.2" avg="0.0" fails="0"/>
             <duration value="1" count="48"/>
          </name>
          <name id="OutboundPhase" totalCount="48" failCount="0" failPercent="0.00" min="1.572" max="3070.182" avg="0.0" sum="5898.6" sum2="10394078.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="5407.831000000002" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="490.7680000000001" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="5407.8" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="490.8" avg="0.0" fails="0"/>
             <duration value="1024" count="1"/>
             <duration value="4096" count="1"/>
             <duration value="64" count="9"/>
@@ -289,8 +289,8 @@
          <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
          <name id="transaction" totalCount="28" failCount="0" failPercent="0.00" min="12.527" max="865.009" avg="0.0" sum="2339.5" sum2="1505763.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
-            <range value="35" count="16" sum="2082.9700000000003" avg="0.0" fails="0"/>
-            <range value="40" count="12" sum="256.49800000000005" avg="0.0" fails="0"/>
+            <range value="35" count="16" sum="2083.0" avg="0.0" fails="0"/>
+            <range value="40" count="12" sum="256.5" avg="0.0" fails="0"/>
             <duration value="1024" count="2"/>
             <duration value="64" count="5"/>
             <duration value="32" count="17"/>
@@ -298,42 +298,42 @@
          </name>
          <name id="CompositeEventService" totalCount="3" failCount="0" failPercent="0.00" min="6.883" max="11.878" avg="0.0" sum="26.1" sum2="243.0" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
-            <range value="35" count="2" sum="18.761" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="7.387" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="18.8" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="7.4" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="2"/>
          </name>
          <name id="RemoteEventService" totalCount="3" failCount="0" failPercent="0.00" min="6.154" max="10.116" avg="0.0" sum="23.1" sum2="186.3" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
-            <range value="35" count="2" sum="16.27" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="6.787" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="16.3" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="6.8" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="2"/>
          </name>
          <name id="CompositeProblemService" totalCount="4" failCount="0" failPercent="0.00" min="6.153" max="11.545" avg="0.0" sum="31.1" sum2="261.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
-            <range value="35" count="3" sum="24.97" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="6.153" avg="0.0" fails="0"/>
+            <range value="35" count="3" sum="25.0" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="6.2" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="3"/>
          </name>
          <name id="RemoteProblemService" totalCount="4" failCount="0" failPercent="0.00" min="5.555" max="10.33" avg="0.0" sum="27.6" sum2="206.2" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
-            <range value="35" count="3" sum="22.037" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="5.555" avg="0.0" fails="0"/>
+            <range value="35" count="3" sum="22.0" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="5.6" avg="0.0" fails="0"/>
             <duration value="16" count="1"/>
             <duration value="8" count="3"/>
          </name>
          <name id="CompositeHeartbeatService" totalCount="3" failCount="0" failPercent="0.00" min="6.343" max="7.94" avg="0.0" sum="20.8" sum2="145.4" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
-            <range value="35" count="2" sum="14.43" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="6.343" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="14.4" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="6.3" avg="0.0" fails="0"/>
             <duration value="8" count="3"/>
          </name>
          <name id="RemoteHeartbeatService" totalCount="3" failCount="0" failPercent="0.00" min="5.769" max="7.39" avg="0.0" sum="19.1" sum2="122.8" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
-            <range value="35" count="2" sum="13.295" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="5.769" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="13.3" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="5.8" avg="0.0" fails="0"/>
             <duration value="8" count="3"/>
          </name>
       </type>
@@ -343,25 +343,25 @@
          <successMessageUrl>Cat-c0a80a7c-380065-207</successMessageUrl>
          <name id="transaction" totalCount="2" failCount="0" failPercent="0.00" min="2.85" max="28.806" avg="0.0" sum="31.7" sum2="837.9" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-207</successMessageUrl>
-            <range value="35" count="2" sum="31.656000000000002" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="31.7" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="4" count="1"/>
          </name>
          <name id="problem" totalCount="2" failCount="0" failPercent="0.00" min="3.988" max="24.791" avg="0.0" sum="28.8" sum2="630.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-205</successMessageUrl>
-            <range value="35" count="2" sum="28.779" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="28.8" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="4" count="1"/>
          </name>
          <name id="heartbeat" totalCount="2" failCount="0" failPercent="0.00" min="3.52" max="46.217" avg="0.0" sum="49.7" sum2="2148.4" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-203</successMessageUrl>
-            <range value="35" count="2" sum="49.737" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="49.7" avg="0.0" fails="0"/>
             <duration value="64" count="1"/>
             <duration value="4" count="1"/>
          </name>
          <name id="event" totalCount="2" failCount="0" failPercent="0.00" min="7.049" max="31.407" avg="0.0" sum="38.5" sum2="1036.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-201</successMessageUrl>
-            <range value="35" count="2" sum="38.456" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="38.5" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="8" count="1"/>
          </name>
@@ -370,7 +370,7 @@
          <successMessageUrl>Cat-c0a80a7c-380065-208</successMessageUrl>
          <name id="project.findAll" totalCount="1" failCount="0" failPercent="0.00" min="1207.738" max="1207.738" avg="0.0" sum="1207.7" sum2="1458631.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-208</successMessageUrl>
-            <range value="35" count="1" sum="1207.738" avg="0.0" fails="0"/>
+            <range value="35" count="1" sum="1207.7" avg="0.0" fails="0"/>
             <duration value="2048" count="1"/>
          </name>
       </type>
@@ -378,8 +378,8 @@
          <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
          <name id="model" totalCount="24" failCount="0" failPercent="0.00" min="1.87" max="817.773" avg="0.0" sum="1025.1" sum2="671858.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="15" sum="951.294" avg="0.0" fails="0"/>
-            <range value="40" count="9" sum="73.766" avg="0.0" fails="0"/>
+            <range value="35" count="15" sum="951.3" avg="0.0" fails="0"/>
+            <range value="40" count="9" sum="73.8" avg="0.0" fails="0"/>
             <duration value="1024" count="1"/>
             <duration value="64" count="1"/>
             <duration value="16" count="10"/>
@@ -390,8 +390,8 @@
          </name>
          <name id="t" totalCount="14" failCount="0" failPercent="0.00" min="17.657" max="3087.646" avg="0.0" sum="3815.5" sum2="9583176.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
-            <range value="35" count="8" sum="3499.516" avg="0.0" fails="0"/>
-            <range value="40" count="6" sum="316.005" avg="0.0" fails="0"/>
+            <range value="35" count="8" sum="3499.5" avg="0.0" fails="0"/>
+            <range value="40" count="6" sum="316.0" avg="0.0" fails="0"/>
             <duration value="4096" count="1"/>
             <duration value="128" count="4"/>
             <duration value="64" count="7"/>
@@ -399,22 +399,22 @@
          </name>
          <name id="e" totalCount="3" failCount="0" failPercent="0.00" min="22.266" max="395.014" avg="0.0" sum="445.2" sum2="157308.7" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-221</successMessageUrl>
-            <range value="35" count="2" sum="422.887" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="22.266" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="422.9" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="22.3" avg="0.0" fails="0"/>
             <duration value="512" count="1"/>
             <duration value="32" count="2"/>
          </name>
          <name id="p" totalCount="4" failCount="0" failPercent="0.00" min="22.821" max="279.697" avg="0.0" sum="357.0" sum2="80239.8" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-223</successMessageUrl>
-            <range value="35" count="3" sum="328.09900000000005" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="28.883" avg="0.0" fails="0"/>
+            <range value="35" count="3" sum="328.1" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="28.9" avg="0.0" fails="0"/>
             <duration value="512" count="1"/>
             <duration value="32" count="3"/>
          </name>
          <name id="h" totalCount="3" failCount="0" failPercent="0.00" min="36.394" max="243.878" avg="0.0" sum="341.4" sum2="64539.7" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-225</successMessageUrl>
-            <range value="35" count="2" sum="280.272" avg="0.0" fails="0"/>
-            <range value="40" count="1" sum="61.145" avg="0.0" fails="0"/>
+            <range value="35" count="2" sum="280.3" avg="0.0" fails="0"/>
+            <range value="40" count="1" sum="61.1" avg="0.0" fails="0"/>
             <duration value="256" count="1"/>
             <duration value="64" count="2"/>
          </name>
@@ -423,22 +423,22 @@
          <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
          <name id="InboundPhase" totalCount="48" failCount="0" failPercent="0.00" min="0.117" max="17.141" avg="0.0" sum="35.1" sum2="304.6" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="27.059000000000005" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="7.9990000000000006" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="27.1" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="8.0" avg="0.0" fails="0"/>
             <duration value="32" count="1"/>
             <duration value="2" count="3"/>
             <duration value="1" count="44"/>
          </name>
          <name id="TransitionPhase" totalCount="48" failCount="0" failPercent="0.00" min="0.0060" max="0.337" avg="0.0" sum="0.8" sum2="0.1" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="0.6510000000000001" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="0.15800000000000003" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="0.7" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="0.2" avg="0.0" fails="0"/>
             <duration value="1" count="48"/>
          </name>
          <name id="OutboundPhase" totalCount="48" failCount="0" failPercent="0.00" min="1.572" max="3070.182" avg="0.0" sum="5898.6" sum2="10394078.5" std="0.0" tps="0.00" line95Value="0.00">
             <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
-            <range value="35" count="30" sum="5407.831000000002" avg="0.0" fails="0"/>
-            <range value="40" count="18" sum="490.7680000000001" avg="0.0" fails="0"/>
+            <range value="35" count="30" sum="5407.8" avg="0.0" fails="0"/>
+            <range value="40" count="18" sum="490.8" avg="0.0" fails="0"/>
             <duration value="1024" count="1"/>
             <duration value="4096" count="1"/>
             <duration value="64" count="9"/>

@@ -60,27 +60,4 @@ public class ProblemReportMerger extends DefaultMerger {
 			}
 		}
 	}
-
-	@Override
-	public void visitEntry(Entry entry) {
-		Machine machine = (Machine) getObjects().peek();
-		Entry old = findEntry(machine, entry);
-
-		if (old == null) {
-			old = new Entry();
-			old.setType(entry.getType()).setStatus(entry.getStatus());
-
-			machine.addEntry(old);
-		}
-
-		visitEntryChildren(old, entry);
-	}
-
-	@Override
-	public void visitProblemReport(ProblemReport problemReport) {
-		super.visitProblemReport(problemReport);
-
-		getProblemReport().getIps().addAll(problemReport.getIps());
-		getProblemReport().getDomainNames().addAll(problemReport.getDomainNames());
-	}
 }

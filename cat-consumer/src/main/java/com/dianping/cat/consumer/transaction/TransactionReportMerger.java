@@ -132,6 +132,11 @@ public class TransactionReportMerger extends DefaultMerger {
 		}
 	}
 
+	@Override
+   public void mergeTransactionReport(TransactionReport to, TransactionReport from) {
+	   super.mergeTransactionReport(to, from);
+   }
+
 	double std(long count, double avg, double sum2, double max) {
 		double value = sum2 / count - avg * avg;
 
