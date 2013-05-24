@@ -76,7 +76,7 @@ public class ServerConfigManager implements LogEnabled {
 			ConsoleConfig console = m_config.getConsole();
 			String remoteServers = console.getRemoteServers();
 			List<String> endpoints = Splitters.by(',').noEmptyItem().trim().split(remoteServers);
-			List<Pair<String, Integer>> pairs = new ArrayList<Pair<String, Integer>>(endpoints.size());
+			List<Pair<String, Integer>> pairs = new ArrayList<Pair<String, Integer>>( endpoints.size());
 
 			for (String endpoint : endpoints) {
 				int pos = endpoint.indexOf(':');

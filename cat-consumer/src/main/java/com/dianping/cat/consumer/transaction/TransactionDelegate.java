@@ -1,13 +1,5 @@
 package com.dianping.cat.consumer.transaction;
 
-import static com.dianping.cat.report.ReportConstants.ALL;
-import static com.dianping.cat.report.ReportConstants.PROPERTY_GRAPH;
-import static com.dianping.cat.report.ReportConstants.PROPERTY_IP;
-import static com.dianping.cat.report.ReportConstants.PROPERTY_NAME;
-import static com.dianping.cat.report.ReportConstants.PROPERTY_PATTERN;
-import static com.dianping.cat.report.ReportConstants.PROPERTY_SORT_BY;
-import static com.dianping.cat.report.ReportConstants.PROPERTY_TYPE;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +25,7 @@ import com.dianping.cat.consumer.transaction.model.transform.VisitorChain;
 import com.dianping.cat.report.BaseReportDelegate;
 import com.dianping.cat.report.ReportConstants;
 
-public class TransactionDelegate extends BaseReportDelegate<TransactionReport> {
+public class TransactionDelegate extends BaseReportDelegate<TransactionReport> implements ReportConstants {
 	@Override
 	public void beforeSave(Map<String, TransactionReport> reports) {
 		for (TransactionReport report : reports.values()) {
@@ -104,6 +96,11 @@ public class TransactionDelegate extends BaseReportDelegate<TransactionReport> {
 
 	@Override
 	public TransactionReport pack(TransactionReport report, Map<String, String> properties) {
+		// to work around existing report issues
+		if ("true".equals(properties.get(PROPERTY_EXCLUDE_ALL))) {
+			report.getMachines().remove(ALL);
+		}
+
 		String ip = properties.get(PROPERTY_IP);
 		String type = properties.get(PROPERTY_TYPE);
 		String name = properties.get(PROPERTY_NAME);

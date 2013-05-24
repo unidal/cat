@@ -90,16 +90,17 @@
 			支持多个字符串查询，例如sql|url|task，查询结果为包含任一sql、url、task的列。
 			</th></tr>
 			<tr>
-			<th><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=type&queryname=${model.queryName}">Name</a></th>
-			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">Total Count</a></th>
-			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=failure&queryname=${model.queryName}">Failure Count</a></th>
-			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=failurePercent&queryname=${model.queryName}">Failure%</a></th>
-			<th  class="right">Sample Link</th><th class="right">Min(ms)</th><th class="right">Max(ms)</th>
-			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&type=${payload.type}&sort=avg&queryname=${model.queryName}">Avg</a>(ms)</th>
-			<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&type=${payload.type}&sort=95line&queryname=${model.queryName}">95Line</a>(ms)</th>
-			<th class="right">Std(ms)</th>
-			<th class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">QPS</a></th>
-			<th class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">Percent%</a></th></tr>
+				<th><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=type&queryname=${model.queryName}">Name</a></th>
+				<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">Total Count</a></th>
+				<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=failure&queryname=${model.queryName}">Failure Count</a></th>
+				<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=failurePercent&queryname=${model.queryName}">Failure%</a></th>
+				<th  class="right">Sample Link</th><th class="right">Min(ms)</th><th class="right">Max(ms)</th>
+				<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&type=${payload.type}&sort=avg&queryname=${model.queryName}">Avg</a>(ms)</th>
+				<th  class="right"><a href="?domain=${model.domain}&date=${model.date}&type=${payload.type}&sort=95line&queryname=${model.queryName}">95Line</a>(ms)</th>
+				<th class="right">Std(ms)</th>
+				<th class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">QPS</a></th>
+				<th class="right"><a href="?domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&type=${payload.type}&sort=total&queryname=${model.queryName}">Percent%</a></th>
+			</tr>
 			<tr class="graphs"><td colspan="12"><div id="-1" style="display:none"></div></td></tr>
 			<c:forEach var="machine" items="${model.report.machines}">
 				<c:forEach var="type" items="${machine.value.types}">
@@ -137,21 +138,24 @@
 		</c:otherwise>
 	</c:choose>
 </table>
+
 <font color="white">${lastIndex}</font>
 <res:useJs value="${res.js.local.transaction_js}" target="bottom-js" />
-<c:choose>
-	<c:when test="${not empty payload.type}">
-		<table>
-			<tr>
-				<td><div id="transactionGraph" class="pieChart"></div>
-				</td>
-			</tr>
-		</table>
-		<script type="text/javascript">
-			var data = ${model.pieChart};
-			graphPieChart(document.getElementById('transactionGraph'), data);
-		</script>
-	</c:when>
-</c:choose>
+
+<c:if test="${not empty payload.type}">
+	<table>
+		<tr>
+			<td><div id="transactionGraph" class="pieChart"></div></td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		var data = ${model.pieChart};
+		graphPieChart(document.getElementById('transactionGraph'), data);
+	</script>
+</c:if>
+
+<br/>
+
 </jsp:body>
+
 </a:report>

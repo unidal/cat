@@ -1,8 +1,8 @@
 package com.dianping.cat.report;
 
-public class ReportConstants {
+public interface ReportConstants {
 	public static final String ALL = "All";
-	
+
 	public static final String TOTAL = "TOTAL";
 
 	public static final String PROPERTY_DATE = "date";
@@ -14,10 +14,13 @@ public class ReportConstants {
 	public static final String PROPERTY_NAME = "name";
 
 	public static final String PROPERTY_GRAPH = "graph";
-	
+
 	public static final String PROPERTY_PATTERN = "pattern";
-	
+
 	public static final String PROPERTY_SORT_BY = "sortBy";
+
+	// to exclude all machine in historical report
+	public static final String PROPERTY_EXCLUDE_ALL = "excludeAll";
 
 	public static final String VALUE_ALL = "*";
 

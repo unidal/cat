@@ -139,7 +139,7 @@ public class Handler implements PageHandler<Context> {
 		      .setProperty(ReportConstants.PROPERTY_NAME, name)//
 		      .setProperty(ReportConstants.PROPERTY_GRAPH, "true");
 
-		TransactionReport report = m_repository.queryHouylyReport(request);
+		TransactionReport report = m_repository.queryHourlyReport(request);
 		TransactionType t = report.findMachine(ip).findType(type);
 
 		if (t != null) {
@@ -167,7 +167,34 @@ public class Handler implements PageHandler<Context> {
 		      .setProperty(ReportConstants.PROPERTY_PATTERN, payload.getQueryName()) //
 		      .setProperty(ReportConstants.PROPERTY_SORT_BY, payload.getSortBy());
 
-		TransactionReport report = m_repository.queryHouylyReport(request);
+		TransactionReport report = m_repository.queryHourlyReport(request);
+
+		return report;
+	}
+
+	private TransactionReport getHistoricalReport(Payload payload) {
+		String domain = payload.getDomain();
+		String ipAddress = payload.getIpAddress();
+		String reportType = payload.getReportType();
+		ModelRequest request = new ModelRequest(domain, payload.getDate()) //
+		      .setReportName("transaction") //
+		      .setProperty(ReportConstants.PROPERTY_EXCLUDE_ALL, "true") //
+		      .setProperty(ReportConstants.PROPERTY_IP, ipAddress) //
+		      .setProperty(ReportConstants.PROPERTY_TYPE, payload.getType()) //
+		      .setProperty(ReportConstants.PROPERTY_PATTERN, payload.getQueryName()) //
+		      .setProperty(ReportConstants.PROPERTY_SORT_BY, payload.getSortBy());
+
+		TransactionReport report;
+
+		if ("day".equals(reportType)) {
+			report = m_repository.queryDailyReport(request);
+		} else if ("week".equals(reportType)) {
+			report = m_repository.queryWeeklyReport(request);
+		} else if ("month".equals(reportType)) {
+			report = m_repository.queryMonthlyReport(request);
+		} else {
+			report = m_repository.queryDailyReport(request);
+		}
 
 		return report;
 	}
@@ -178,6 +205,8 @@ public class Handler implements PageHandler<Context> {
 	public void handleInbound(Context ctx) throws ServletException, IOException {
 		// display only, no action here
 	}
+
+	private boolean migrate = true;
 
 	@Override
 	@OutboundActionMeta(name = "t")
@@ -192,12 +221,17 @@ public class Handler implements PageHandler<Context> {
 			showHourlyReport(model, payload);
 			break;
 		case HISTORY_REPORT:
-			showSummarizeReport(model, payload);
+			if (migrate) {
+				showHistoricalReport(model, payload);
+			} else {
+				showSummarizeReport(model, payload);
+			}
+
 			break;
 		case HISTORY_GRAPH:
 			m_historyGraph.buildTrendGraph(model, payload);
 			break;
-		case GRAPHS:
+		case HOURLY_GRAPHS:
 			showHourlyGraphs(model, payload);
 
 			break;
@@ -247,6 +281,30 @@ public class Handler implements PageHandler<Context> {
 	private void showHourlyReport(Model model, Payload payload) {
 		try {
 			TransactionReport report = getHourlyReport(payload);
+
+			if (report != null) {
+				report.accept(m_computer);
+			}
+
+			if (payload.getType() != null && payload.getType().length() > 0) {
+				model.setPieChart(buildPieChart(report));
+
+				DefaultMaker maker = new DefaultMaker();
+
+				report.accept(new VisitorChain(maker, new TransactionAggregatorForNameTotal()));
+				report = maker.getTransactionReport();
+			}
+
+			model.setReport(report);
+		} catch (Throwable e) {
+			Cat.logError(e);
+			model.setException(e);
+		}
+	}
+
+	private void showHistoricalReport(Model model, Payload payload) {
+		try {
+			TransactionReport report = getHistoricalReport(payload);
 
 			if (report != null) {
 				report.accept(m_computer);

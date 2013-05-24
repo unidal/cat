@@ -1,17 +1,15 @@
 package com.dianping.cat.report.page.transaction;
 
 public enum JspFile {
-	GRAPHS("/jsp/report/transactionGraphs.jsp"),
-
-	HISTORY_GRAPH("/jsp/report/transactionHistoryGraphs.jsp"),
-
-	HISTORY_REPORT("/jsp/report/transactionHistoryReport.jsp"),
-
 	HOURLY_REPORT("/jsp/report/transaction.jsp"),
 
-	MOBILE("/jsp/report/transactionMobile.jsp"),
+	HOURLY_GRAPHS("/jsp/report/transactionGraphs.jsp"),
 
-	MOBILE_GRAPHS("/jsp/report/transactionMobile.jsp");
+	HISTORY_REPORT("/jsp/report/transactionHistory.jsp"),
+
+	HISTORY_GRAPHS("/jsp/report/transactionHistoryGraphs.jsp"),
+
+	;
 
 	private String m_path;
 

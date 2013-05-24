@@ -84,5 +84,4 @@ public class Payload extends AbstractReportPayload<Action> {
 			m_action = Action.HOURLY_REPORT;
 		}
 	}
-
 }

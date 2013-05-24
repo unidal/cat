@@ -1,17 +1,13 @@
 package com.dianping.cat.report.page.transaction;
 
 public enum Action implements org.unidal.web.mvc.Action {
-	GRAPHS("graphs"),
+	HOURLY_GRAPHS("graphs"),
 
 	HISTORY_GRAPH("historyGraph"),
 
 	HISTORY_REPORT("history"),
 
-	HOURLY_REPORT("view"),
-
-	MOBILE("mobile"),
-
-	MOBILE_GRAPHS("mobile_graphs");
+	HOURLY_REPORT("view");
 
 	public static Action getByName(String name, Action defaultAction) {
 		for (Action action : Action.values()) {

@@ -1,5 +1,6 @@
 package com.dianping.cat.report;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,15 @@ public class DefaultReportRepository<T> extends ContainerHolder implements Repor
 
 	private List<Pair<String, Integer>> m_endpoints;
 
+	protected long getDuration(long startTime, int field) {
+		Calendar cal = Calendar.getInstance();
+
+		cal.setTimeInMillis(startTime);
+		cal.add(field, 1);
+
+		return cal.getTimeInMillis() - startTime - 1;
+	}
+
 	@Override
 	public void initialize() throws InitializationException {
 		m_endpoints = m_configManager.getConsoleEndpoints();
@@ -68,7 +78,7 @@ public class DefaultReportRepository<T> extends ContainerHolder implements Repor
 		long startTime = request.getStartTime();
 		String name = request.getReportName();
 		ReportDelegate<T> delegate = lookupReportDelegate(name);
-		T result = delegate.makeReport(domain, startTime, ReportConstants.HOUR);
+		T result = delegate.makeReport(domain, startTime, ReportConstants.DAY);
 
 		try {
 			List<DailyReport> reports = m_dailyReportDao.findAllByPeriodDomainName(new Date(startTime), domain, name,
@@ -173,7 +183,7 @@ public class DefaultReportRepository<T> extends ContainerHolder implements Repor
 		long startTime = request.getStartTime();
 		String name = request.getReportName();
 		ReportDelegate<T> delegate = lookupReportDelegate(name);
-		T result = delegate.makeReport(domain, startTime, ReportConstants.HOUR);
+		T result = delegate.makeReport(domain, startTime, getDuration(startTime, Calendar.MONTH));
 
 		try {
 			List<MonthlyReport> reports = m_monthlyReportDao.findAllByPeriodDomainName(new Date(startTime), domain, name,
@@ -201,7 +211,7 @@ public class DefaultReportRepository<T> extends ContainerHolder implements Repor
 		long startTime = request.getStartTime();
 		String name = request.getReportName();
 		ReportDelegate<T> delegate = lookupReportDelegate(name);
-		T result = delegate.makeReport(domain, startTime, ReportConstants.HOUR);
+		T result = delegate.makeReport(domain, startTime, ReportConstants.WEEK);
 
 		try {
 			List<WeeklyReport> reports = m_weeklyReportDao.findAllByPeriodDomainName(new Date(startTime), domain, name,
@@ -238,11 +248,15 @@ public class DefaultReportRepository<T> extends ContainerHolder implements Repor
 
 	@Override
 	public T queryDailyReport(ModelRequest request) {
-		return loadHouylyReportFromDatabase(request);
+		T report = loadDailyReportFromDatabase(request);
+		ReportDelegate<T> delegate = lookupReportDelegate(request.getReportName());
+
+		report = delegate.pack(report, request.getProperties());
+		return report;
 	}
 
 	@Override
-	public T queryHouylyReport(ModelRequest request) {
+	public T queryHourlyReport(ModelRequest request) {
 		T report = null;
 
 		switch (request.getPeriod()) {
@@ -264,17 +278,24 @@ public class DefaultReportRepository<T> extends ContainerHolder implements Repor
 		ReportDelegate<T> delegate = lookupReportDelegate(request.getReportName());
 
 		report = delegate.pack(report, request.getProperties());
-
 		return report;
 	}
 
 	@Override
 	public T queryMonthlyReport(ModelRequest request) {
-		return loadMonthlyReportFromDatabase(request);
+		T report = loadMonthlyReportFromDatabase(request);
+		ReportDelegate<T> delegate = lookupReportDelegate(request.getReportName());
+
+		report = delegate.pack(report, request.getProperties());
+		return report;
 	}
 
 	@Override
 	public T queryWeeklyReport(ModelRequest request) {
-		return loadWeeklyReportFromDatabase(request);
+		T report = loadWeeklyReportFromDatabase(request);
+		ReportDelegate<T> delegate = lookupReportDelegate(request.getReportName());
+
+		report = delegate.pack(report, request.getProperties());
+		return report;
 	}
 }

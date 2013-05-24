@@ -10,6 +10,7 @@ import org.codehaus.plexus.logging.Logger;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
+import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -204,18 +205,19 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 	}
 
 	private void sendInternal(MessageTree tree) {
-		if (m_future == null || !m_future.getChannel().isOpen()) {
+		Channel channel = m_future.getChannel();
+		if (m_future == null || !channel.isOpen()) {
 			reconnect();
 		}
 
-		if (m_future != null && m_future.getChannel().isOpen()) {
+		if (m_future != null && channel.isOpen()) {
 			ChannelBuffer buf = ChannelBuffers.dynamicBuffer(8 * 1024); // 8K
 
 			m_codec.encode(tree, buf);
 
 			int size = buf.readableBytes();
 
-			m_future.getChannel().write(buf);
+			channel.write(buf);
 
 			if (m_statistics != null) {
 				m_statistics.onBytes(size);
