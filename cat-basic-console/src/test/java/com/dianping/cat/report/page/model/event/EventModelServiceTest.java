@@ -2,11 +2,13 @@ package com.dianping.cat.report.page.model.event;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.unidal.lookup.ComponentTestCase;
 
+import com.dianping.cat.Cat;
 import com.dianping.cat.report.model.ModelPeriod;
 import com.dianping.cat.report.model.ModelRequest;
 import com.dianping.cat.report.model.ModelResponse;
@@ -14,7 +16,12 @@ import com.dianping.cat.report.page.model.spi.ModelService;
 
 @RunWith(JUnit4.class)
 public class EventModelServiceTest extends ComponentTestCase {
+	@Before
+	public void before() {
+		Cat.initialize(null);
+	}
 
+	@Test
 	public void testLookup() throws Exception {
 		ModelService<?> local = lookup(ModelService.class, "event-local");
 		ModelService<?> composite = lookup(ModelService.class, "event");

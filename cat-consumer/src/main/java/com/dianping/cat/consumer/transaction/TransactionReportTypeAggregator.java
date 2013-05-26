@@ -10,12 +10,11 @@ import com.dianping.cat.consumer.transaction.model.entity.TransactionType;
 import com.dianping.cat.consumer.transaction.model.transform.BaseVisitor;
 
 public class TransactionReportTypeAggregator extends BaseVisitor {
-
 	private TransactionReport m_report;
 
 	public String m_currentDomain;
 
-	public static Set<String> ALL_TYPES = new HashSet<String>(Arrays.asList( //
+	private static Set<String> ALL_TYPES = new HashSet<String>(Arrays.asList( //
 	      "URL", "Call", "PigeonCall", "Service", //
 	      "PigeonService", "SQL", "MsgProduceTried", "MsgProduced"));
 

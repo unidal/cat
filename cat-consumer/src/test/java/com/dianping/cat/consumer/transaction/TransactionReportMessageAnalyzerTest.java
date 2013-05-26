@@ -1,9 +1,11 @@
 package com.dianping.cat.consumer.transaction;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.unidal.lookup.ComponentTestCase;
 
+import com.dianping.cat.Cat;
 import com.dianping.cat.consumer.MessageAnalyzerManager;
 import com.dianping.cat.consumer.transaction.TransactionAnalyzer;
 import com.dianping.cat.consumer.transaction.model.entity.TransactionName;
@@ -15,6 +17,11 @@ import com.dianping.cat.message.spi.MessageTree;
 import com.dianping.cat.message.spi.internal.DefaultMessageTree;
 
 public class TransactionReportMessageAnalyzerTest extends ComponentTestCase {
+	@Before
+	public void before() {
+		Cat.initialize(null);
+	}
+
 	@Test
 	public void testCommonGenerate() throws Exception {
 		long current = System.currentTimeMillis();
@@ -54,6 +61,9 @@ public class TransactionReportMessageAnalyzerTest extends ComponentTestCase {
 		}
 
 		TransactionReport report = analyzer.getReport("group");
+		
+		report.accept(new TransactionStatisticsComputer());
+		
 		TransactionType typeA = report.getMachines().get("192.168.1.1").getTypes().get("A");
 		TransactionName n1 = typeA.getNames().get("n1");
 		Assert.assertEquals(1000, n1.getTotalCount());

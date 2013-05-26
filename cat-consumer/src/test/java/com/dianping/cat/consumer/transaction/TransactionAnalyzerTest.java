@@ -2,10 +2,12 @@ package com.dianping.cat.consumer.transaction;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.unidal.helper.Files;
 import org.unidal.lookup.ComponentTestCase;
 
+import com.dianping.cat.Cat;
 import com.dianping.cat.consumer.MessageAnalyzer;
 import com.dianping.cat.consumer.transaction.model.entity.TransactionReport;
 import com.dianping.cat.message.Message;
@@ -14,12 +16,14 @@ import com.dianping.cat.message.spi.MessageTree;
 import com.dianping.cat.message.spi.internal.DefaultMessageTree;
 
 public class TransactionAnalyzerTest extends ComponentTestCase {
-	private long timestamp;
+	@Before
+	public void before() {
+		Cat.initialize(null);
+	}
 
 	@Test
 	public void testProcessTransaction() throws Exception {
-		timestamp = System.currentTimeMillis() - System.currentTimeMillis() % (3600 * 1000);
-
+		long timestamp = 1369537200000L;
 		TransactionAnalyzer analyzer = (TransactionAnalyzer) lookup(MessageAnalyzer.class, TransactionAnalyzer.ID);
 		TransactionReport report = new TransactionReport("Test");
 
@@ -54,10 +58,8 @@ public class TransactionAnalyzerTest extends ComponentTestCase {
 			analyzer.processTransaction(report, tree, t);
 		}
 
-		report.accept(new TransactionStatisticsComputer());
-
 		String expected = Files.forIO().readFrom(getClass().getResourceAsStream("TransactionAnalyzerTest.xml"), "utf-8");
-		Assert.assertEquals(expected.replaceAll("\\s*", ""), report.toString().replaceAll("\\s*", ""));
+		Assert.assertEquals(expected.replaceAll("\r", ""), report.toString().replaceAll("\r*", ""));
 	}
 
 	protected MessageTree newMessageTree(int i) {

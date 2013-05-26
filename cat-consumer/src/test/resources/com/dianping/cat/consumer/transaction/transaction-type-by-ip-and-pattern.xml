@@ -4,14 +4,14 @@
    <ip>192.168.10.125</ip>
    <ip>192.168.10.126</ip>
    <machine ip="192.168.10.125">
-      <type id="System" totalCount="3" failCount="0" failPercent="0.00" min="1.238" max="97.695" avg="0.0" sum="104.3" sum2="9575.0" std="0.0" tps="0.00" line95Value="0.00">
-         <successMessageUrl>Cat-c0a80a7c-380065-198</successMessageUrl>
+      <type id="MVC" totalCount="144" failCount="0" failPercent="0.00" min="0.0060" max="3070.182" avg="0.0" sum="5934.5" sum2="10394383.2" std="0.0" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
       </type>
       <type id="ModelService" totalCount="48" failCount="0" failPercent="0.00" min="5.555" max="865.009" avg="0.0" sum="2487.2" sum2="1506928.9" std="0.0" tps="0.00" line95Value="0.00">
          <successMessageUrl>Cat-c0a80a7c-380065-209</successMessageUrl>
       </type>
-      <type id="MVC" totalCount="144" failCount="0" failPercent="0.00" min="0.0060" max="3070.182" avg="0.0" sum="5934.5" sum2="10394383.2" std="0.0" tps="0.00" line95Value="0.00">
-         <successMessageUrl>Cat-c0a80a7c-380065-210</successMessageUrl>
+      <type id="System" totalCount="3" failCount="0" failPercent="0.00" min="1.238" max="97.695" avg="0.0" sum="104.3" sum2="9575.0" std="0.0" tps="0.00" line95Value="0.00">
+         <successMessageUrl>Cat-c0a80a7c-380065-198</successMessageUrl>
       </type>
    </machine>
 </transaction-report>

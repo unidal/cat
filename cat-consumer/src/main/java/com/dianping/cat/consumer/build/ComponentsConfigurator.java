@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.unidal.dal.jdbc.datasource.JdbcDataSourceConfigurationManager;
 import org.unidal.initialization.Module;
 import org.unidal.lookup.configuration.AbstractResourceConfigurator;
 import org.unidal.lookup.configuration.Component;
@@ -71,6 +72,11 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		all.add(C(Module.class, CatConsumerModule.ID, CatConsumerModule.class));
 
 		all.addAll(new CatCoreDatabaseConfigurator().defineComponents());
+		
+		// database
+		all.add(C(JdbcDataSourceConfigurationManager.class) //
+		      .config(E("datasourceFile").value("config/datasources.xml"), //
+		            E("baseDirRef").value("CAT_HOME"), E("defaultBaseDir").value("/data/appdatas/cat"), null));
 
 		return all;
 	}
