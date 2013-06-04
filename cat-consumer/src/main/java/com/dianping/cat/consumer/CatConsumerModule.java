@@ -20,6 +20,7 @@ public class CatConsumerModule extends AbstractModule {
 		if (manager.isLocalMode()) {
 			encodeThreadNumber = 1;
 		}
+		
 		receiver.startEncoderThreads(encodeThreadNumber);
 	}
 

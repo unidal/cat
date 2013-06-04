@@ -11,6 +11,7 @@ import com.dianping.cat.consumer.core.ProblemHandlerTest;
 import com.dianping.cat.consumer.transaction.TransactionAnalyzerTest;
 import com.dianping.cat.consumer.transaction.TransactionReportMessageAnalyzerTest;
 import com.dianping.cat.consumer.transaction.TransactionReportTest;
+import com.dianping.cat.consumer.transaction.TransactionTaskTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -33,7 +34,9 @@ TransactionAnalyzerTest.class,
 
 TransactionReportMessageAnalyzerTest.class,
 
-TransactionReportTest.class
+TransactionReportTest.class,
+
+TransactionTaskTest.class
 
 })
 public class AllTests {

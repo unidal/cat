@@ -13,6 +13,7 @@ import com.dainping.cat.consumer.core.dal.DailyReportDao;
 import com.dainping.cat.consumer.core.dal.MonthlyReportDao;
 import com.dainping.cat.consumer.core.dal.ReportDao;
 import com.dainping.cat.consumer.core.dal.TaskDao;
+import com.dainping.cat.consumer.core.dal.TaskPayloadDao;
 import com.dainping.cat.consumer.core.dal.WeeklyReportDao;
 import com.dianping.cat.configuration.ServerConfigManager;
 import com.dianping.cat.consumer.CatConsumerModule;
@@ -32,6 +33,8 @@ import com.dianping.cat.consumer.problem.ProblemDelegate;
 import com.dianping.cat.consumer.problem.ProblemHandler;
 import com.dianping.cat.consumer.transaction.TransactionAnalyzer;
 import com.dianping.cat.consumer.transaction.TransactionDelegate;
+import com.dianping.cat.consumer.transaction.TransactionTaskBroker;
+import com.dianping.cat.consumer.transaction.TransactionTaskProcessor;
 import com.dianping.cat.message.spi.MessageConsumer;
 import com.dianping.cat.report.DefaultReportManager;
 import com.dianping.cat.report.DefaultReportRepository;
@@ -43,6 +46,14 @@ import com.dianping.cat.status.ServerStateManager;
 import com.dianping.cat.storage.BucketManager;
 import com.dianping.cat.storage.dump.LocalMessageBucketManager;
 import com.dianping.cat.storage.dump.MessageBucketManager;
+import com.dianping.cat.task.DefaultTaskEventContext;
+import com.dianping.cat.task.DefaultTaskEventEngine;
+import com.dianping.cat.task.DefaultTaskEventRegistry;
+import com.dianping.cat.task.TaskEventConsumer;
+import com.dianping.cat.task.TaskEventContext;
+import com.dianping.cat.task.TaskEventEngine;
+import com.dianping.cat.task.TaskEventHelper;
+import com.dianping.cat.task.TaskEventRegistry;
 
 public class ComponentsConfigurator extends AbstractResourceConfigurator {
 	public static void main(String[] args) {
@@ -63,6 +74,14 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		      .req(ServerConfigManager.class, RemoteModelService.class) //
 		      .req(ReportDao.class, DailyReportDao.class, WeeklyReportDao.class, MonthlyReportDao.class));
 
+		all.add(C(TaskEventRegistry.class, DefaultTaskEventRegistry.class));
+		all.add(C(TaskEventContext.class, DefaultTaskEventContext.class) //
+		      .req(TaskEventHelper.class, TaskPayloadDao.class));
+		all.add(C(TaskEventHelper.class));
+		all.add(C(TaskEventEngine.class, DefaultTaskEventEngine.class) //
+		      .req(TaskEventRegistry.class, TaskEventContext.class, TaskEventHelper.class) //
+		      .req(TaskPayloadDao.class));
+
 		all.addAll(defineTransactionComponents());
 		all.addAll(defineEventComponents());
 		all.addAll(defineProblemComponents());
@@ -72,7 +91,7 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		all.add(C(Module.class, CatConsumerModule.ID, CatConsumerModule.class));
 
 		all.addAll(new CatCoreDatabaseConfigurator().defineComponents());
-		
+
 		// database
 		all.add(C(JdbcDataSourceConfigurationManager.class) //
 		      .config(E("datasourceFile").value("config/datasources.xml"), //
@@ -155,6 +174,18 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		      .req(BucketManager.class, ReportDao.class, TaskDao.class) //
 		      .config(E("name").value(ID)));
 		all.add(C(ReportDelegate.class, ID, TransactionDelegate.class));
+
+		for (TransactionTaskBroker value : TransactionTaskBroker.values()) {
+			String roleHint = value.name() + ":" + value.getClass().getName();
+
+			all.add(C(TaskEventConsumer.class, roleHint, TransactionTaskBroker.class).is(ENUM));
+		}
+
+		for (TransactionTaskProcessor value : TransactionTaskProcessor.values()) {
+			String roleHint = value.name() + ":" + value.getClass().getName();
+
+			all.add(C(TaskEventConsumer.class, roleHint, TransactionTaskProcessor.class).is(ENUM));
+		}
 
 		return all;
 	}

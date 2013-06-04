@@ -185,6 +185,23 @@ CREATE TABLE `task` (
   UNIQUE KEY `task_period_domain_name_type` (`report_period`,`report_domain`,`report_name`,`task_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台任务';
 
+CREATE TABLE `task_payload` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject`       varchar(50) NOT NULL COMMENT '事件主题，如 hourly.transaction, daily.transaction',
+  `payload`       text NOT NULL COMMENT '事件负载',
+  `ref_key`       varchar(100) NULL COMMENT '参考唯一键，如有值，必须保证唯一',
+  `status`        tinyint(4) NOT NULL COMMENT '执行状态: 1/todo, 2/doing, 3/done 4/failed',  
+  `producer`      varchar(20) NOT NULL COMMENT '任务创建者ip',
+  `consumer`      varchar(20) NULL COMMENT '任务执行者ip',
+  `failure_count` tinyint(4) NOT NULL COMMENT '任务失败次数',
+  `failure_reason` text NULL COMMENT '任务失败原因',
+  `max_retry_count` tinyint(4) NOT NULL COMMENT '最大重试次数',
+  `creation_date` datetime NOT NULL  COMMENT '任务创建时间',
+  `start_date`    datetime NULL  COMMENT '执行开始时间',
+  `end_date`      datetime NULL  COMMENT '执行结束时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务事件';
+
 CREATE TABLE `alarmTemplate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL COMMENT '告警模板名称',

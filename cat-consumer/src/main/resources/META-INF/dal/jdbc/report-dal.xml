@@ -36,7 +36,7 @@
 					FROM <TABLE/> 
 					WHERE <FIELD name='status'/> = ${status}
 					<IF type='NOT_NULL' field='consumer'>
-						AND  <FIELD name='consumer'/> = ${consumer}
+						AND <FIELD name='consumer'/> = ${consumer}
 					</IF>
 				]]></statement>
 			</query>
@@ -178,37 +178,53 @@
 					limit ${start-limit},${end-limit}
 				]]></statement>
 			</query>
-
 		</query-defs>
 	</entity>
-	<entity name="hostinfo" table="hostinfo" alias="h">
-		<member name="creation-date" insert-expr="NOW()" />
-		<member name="last-modified-date" insert-expr="NOW()" update-expr="NOW()" />
-		<query-defs>
-			<query name="find-by-ip" type="SELECT">
-				<param name="ip" />
-				<statement><![CDATA[
-				SELECT <FIELDS/> 
-				FROM <TABLE/> 
-				WHERE <FIELD name='ip'/> = ${ip}
-				]]></statement>
-			</query>
-			<query name="find-all-ip" type="SELECT" multiple="true">
-				<statement><![CDATA[
-				SELECT <FIELDS/> 
-				FROM <TABLE/> 
-				]]></statement>
-			</query>
-			<query name="insert" type="INSERT">
-				<statement><![CDATA[
-			INSERT INTO <TABLE/>
-			(<FIELDS/>) VALUES(<VALUES/>) 
-			ON DUPLICATE KEY 
-			UPDATE <FIELD name='domain'/> = ${domain},
-            <FIELD name='last-modified-date'/> = NOW()]]></statement>
-			</query>
-		</query-defs>
-	</entity>
+  <entity name="task-payload" table="task_payload" alias="tp">
+    <member name="creation-date" field="creation_date" value-type="Date" nullable="false" />
+    <var name="old-status" value-type="int"/>
+    <query-defs>
+      <query name="find-by-ref-key" type="SELECT">
+        <param name="ref-key" />
+        <statement><![CDATA[
+        SELECT <FIELDS/>
+        FROM <TABLE/>
+        WHERE <FIELD name='ref-key'/> = ${ref-key}
+        ]]></statement>
+      </query>
+      <query name="find-all-by-status" type="SELECT" multiple="true">
+        <param name="status" />
+        <statement><![CDATA[
+        SELECT <FIELDS/>
+        FROM <TABLE/>
+        WHERE <FIELD name='status'/> = ${status}
+       	LIMIT 20
+        ]]></statement>
+      </query>
+      <query name="find-all-zombies" type="SELECT" multiple="true">
+        <param name="status" />
+        <param name="start-date" />
+        <statement><![CDATA[
+        SELECT <FIELDS/>
+        FROM <TABLE/>
+        WHERE <FIELD name='status'/> = ${status}
+        	AND <FIELD name='start-date'/> <= ${start-date}
+        	AND <FIELD name='end-date'/> IS NULL
+       	LIMIT 20
+        ]]></statement>
+      </query>
+      <query name="update-by-id-and-status" type="UPDATE">
+        <param name="id" />
+        <param name="old-status" />
+        <statement><![CDATA[
+        UPDATE <TABLE/>
+        SET <FIELDS/>
+        WHERE <FIELD name='id'/> = ${id}
+        	AND <FIELD name='status'/> = ${old-status}
+        ]]></statement>
+      </query>
+    </query-defs>
+  </entity>
 	<entity name="project" table="project" alias="p">
 		<member name="creation-date" insert-expr="NOW()" />
 		<member name="modify-date" insert-expr="NOW()" update-expr="NOW()" />

@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities do-package="com.dainping.cat.consumer.advanced.dal" gen="true">
-	<entity name="sqltable">
+	<entity name="hostinfo" table="hostinfo" alias="h">
 		<member name="creation-date" insert-expr="NOW()" />
-		<member name="modify-date" insert-expr="NOW()" update-expr="NOW()" />
+		<member name="last-modified-date" insert-expr="NOW()" update-expr="NOW()" />
 		<query-defs>
-			<query name="find-all-by-domain" type="SELECT" multiple="true">
-				<param name="domain" />
-				<statement><![CDATA[SELECT <FIELDS/> FROM <TABLE/> WHERE <FIELD name='domain'/> = ${domain}]]></statement>
+			<query name="find-by-ip" type="SELECT">
+				<param name="ip" />
+				<statement><![CDATA[
+				SELECT <FIELDS/> 
+				FROM <TABLE/> 
+				WHERE <FIELD name='ip'/> = ${ip}
+				]]></statement>
+			</query>
+			<query name="find-all-ip" type="SELECT" multiple="true">
+				<statement><![CDATA[
+				SELECT <FIELDS/> 
+				FROM <TABLE/> 
+				]]></statement>
+			</query>
+			<query name="insert" type="INSERT">
+				<statement><![CDATA[
+			INSERT INTO <TABLE/>
+			(<FIELDS/>) VALUES(<VALUES/>) 
+			ON DUPLICATE KEY 
+			UPDATE <FIELD name='domain'/> = ${domain},
+            <FIELD name='last-modified-date'/> = NOW()]]></statement>
 			</query>
 		</query-defs>
 	</entity>
@@ -47,6 +65,16 @@
 					INTO <TABLE/>(<FIELDS/>) 
 					VALUES(<VALUES/>)
 				]]></statement>
+			</query>
+		</query-defs>
+	</entity>
+	<entity name="sqltable">
+		<member name="creation-date" insert-expr="NOW()" />
+		<member name="modify-date" insert-expr="NOW()" update-expr="NOW()" />
+		<query-defs>
+			<query name="find-all-by-domain" type="SELECT" multiple="true">
+				<param name="domain" />
+				<statement><![CDATA[SELECT <FIELDS/> FROM <TABLE/> WHERE <FIELD name='domain'/> = ${domain}]]></statement>
 			</query>
 		</query-defs>
 	</entity>

@@ -8,8 +8,7 @@
          <password>password</password>
          <properties>useUnicode=true&amp;autoReconnect=true</properties>
       </datasource>
-      <group name="report" package="com.dainping.cat.consumer.dal.report">
-         <table name="hostinfo"/>
+      <group name="report" package="com.dainping.cat.consumer.core.dal">
          <table name="task"/>
          <table name="project"/>
          <table name="report"/>
@@ -18,6 +17,7 @@
          <table name="monthreport"/>
          <table name="graph"/>
          <table name="dailygraph"/>
+         <table name="task_event"/>
       </group>
    </jdbc>
 </wizard>

@@ -46,6 +46,44 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.task.TaskEventRegistry</role>
+			<implementation>com.dianping.cat.task.DefaultTaskEventRegistry</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventContext</role>
+			<implementation>com.dianping.cat.task.DefaultTaskEventContext</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.task.TaskEventHelper</role>
+				</requirement>
+				<requirement>
+					<role>com.dainping.cat.consumer.core.dal.TaskPayloadDao</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventHelper</role>
+			<implementation>com.dianping.cat.task.TaskEventHelper</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventEngine</role>
+			<implementation>com.dianping.cat.task.DefaultTaskEventEngine</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.task.TaskEventRegistry</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.task.TaskEventContext</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.task.TaskEventHelper</role>
+				</requirement>
+				<requirement>
+					<role>com.dainping.cat.consumer.core.dal.TaskPayloadDao</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
 			<role-hint>transaction</role-hint>
 			<implementation>com.dianping.cat.consumer.transaction.TransactionAnalyzer</implementation>
@@ -84,6 +122,60 @@
 			<role>com.dianping.cat.report.ReportDelegate</role>
 			<role-hint>transaction</role-hint>
 			<implementation>com.dianping.cat.consumer.transaction.TransactionDelegate</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>HOURLY:com.dianping.cat.consumer.transaction.TransactionTaskBroker$1</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskBroker</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>DAILY:com.dianping.cat.consumer.transaction.TransactionTaskBroker$2</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskBroker</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>WEEKLY:com.dianping.cat.consumer.transaction.TransactionTaskBroker$3</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskBroker</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>MONTHLY:com.dianping.cat.consumer.transaction.TransactionTaskBroker$4</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskBroker</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>HOURLY_GRAPH:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>HOURLY_LAST_24H:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>DAILY_GRAPH:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>WEEKLY_GRAPH:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>MONTHLY_GRAPH:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
 		</component>
 		<component>
 			<role>com.dianping.cat.consumer.MessageAnalyzer</role>
@@ -254,10 +346,10 @@
 		</component>
 		<component>
 			<role>org.unidal.dal.jdbc.datasource.DataSource</role>
-			<role-hint>cat</role-hint>
+			<role-hint>CatCore</role-hint>
 			<implementation>org.unidal.dal.jdbc.datasource.JdbcDataSource</implementation>
 			<configuration>
-				<id>cat</id>
+				<id>CatCore</id>
 				<maximum-pool-size>3</maximum-pool-size>
 				<connection-timeout>1s</connection-timeout>
 				<idle-timeout>10m</idle-timeout>
@@ -278,52 +370,12 @@
 		</component>
 		<component>
 			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
-			<role-hint>hostinfo</role-hint>
-			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
-			<configuration>
-				<logical-table-name>hostinfo</logical-table-name>
-				<physical-table-name>hostinfo</physical-table-name>
-				<data-source-name>cat</data-source-name>
-			</configuration>
-		</component>
-		<component>
-			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
-			<role-hint>project</role-hint>
-			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
-			<configuration>
-				<logical-table-name>project</logical-table-name>
-				<physical-table-name>project</physical-table-name>
-				<data-source-name>cat</data-source-name>
-			</configuration>
-		</component>
-		<component>
-			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
-			<role-hint>report</role-hint>
-			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
-			<configuration>
-				<logical-table-name>report</logical-table-name>
-				<physical-table-name>report</physical-table-name>
-				<data-source-name>cat</data-source-name>
-			</configuration>
-		</component>
-		<component>
-			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
-			<role-hint>task</role-hint>
-			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
-			<configuration>
-				<logical-table-name>task</logical-table-name>
-				<physical-table-name>task</physical-table-name>
-				<data-source-name>cat</data-source-name>
-			</configuration>
-		</component>
-		<component>
-			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
 			<role-hint>dailygraph</role-hint>
 			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
 			<configuration>
 				<logical-table-name>dailygraph</logical-table-name>
 				<physical-table-name>dailygraph</physical-table-name>
-				<data-source-name>cat</data-source-name>
+				<data-source-name>CatCore</data-source-name>
 			</configuration>
 		</component>
 		<component>
@@ -333,7 +385,7 @@
 			<configuration>
 				<logical-table-name>dailyreport</logical-table-name>
 				<physical-table-name>dailyreport</physical-table-name>
-				<data-source-name>cat</data-source-name>
+				<data-source-name>CatCore</data-source-name>
 			</configuration>
 		</component>
 		<component>
@@ -343,7 +395,7 @@
 			<configuration>
 				<logical-table-name>graph</logical-table-name>
 				<physical-table-name>graph</physical-table-name>
-				<data-source-name>cat</data-source-name>
+				<data-source-name>CatCore</data-source-name>
 			</configuration>
 		</component>
 		<component>
@@ -353,7 +405,47 @@
 			<configuration>
 				<logical-table-name>monthreport</logical-table-name>
 				<physical-table-name>monthreport</physical-table-name>
-				<data-source-name>cat</data-source-name>
+				<data-source-name>CatCore</data-source-name>
+			</configuration>
+		</component>
+		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>project</role-hint>
+			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
+			<configuration>
+				<logical-table-name>project</logical-table-name>
+				<physical-table-name>project</physical-table-name>
+				<data-source-name>CatCore</data-source-name>
+			</configuration>
+		</component>
+		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>report</role-hint>
+			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
+			<configuration>
+				<logical-table-name>report</logical-table-name>
+				<physical-table-name>report</physical-table-name>
+				<data-source-name>CatCore</data-source-name>
+			</configuration>
+		</component>
+		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>task</role-hint>
+			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
+			<configuration>
+				<logical-table-name>task</logical-table-name>
+				<physical-table-name>task</physical-table-name>
+				<data-source-name>CatCore</data-source-name>
+			</configuration>
+		</component>
+		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>task-payload</role-hint>
+			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
+			<configuration>
+				<logical-table-name>task-payload</logical-table-name>
+				<physical-table-name>task_payload</physical-table-name>
+				<data-source-name>CatCore</data-source-name>
 			</configuration>
 		</component>
 		<component>
@@ -363,12 +455,39 @@
 			<configuration>
 				<logical-table-name>weeklyreport</logical-table-name>
 				<physical-table-name>weeklyreport</physical-table-name>
-				<data-source-name>cat</data-source-name>
+				<data-source-name>CatCore</data-source-name>
 			</configuration>
 		</component>
 		<component>
-			<role>com.dainping.cat.consumer.core.dal.HostinfoDao</role>
-			<implementation>com.dainping.cat.consumer.core.dal.HostinfoDao</implementation>
+			<role>com.dainping.cat.consumer.core.dal.DailygraphDao</role>
+			<implementation>com.dainping.cat.consumer.core.dal.DailygraphDao</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.dal.jdbc.QueryEngine</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dainping.cat.consumer.core.dal.DailyReportDao</role>
+			<implementation>com.dainping.cat.consumer.core.dal.DailyReportDao</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.dal.jdbc.QueryEngine</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dainping.cat.consumer.core.dal.GraphDao</role>
+			<implementation>com.dainping.cat.consumer.core.dal.GraphDao</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.dal.jdbc.QueryEngine</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dainping.cat.consumer.core.dal.MonthlyReportDao</role>
+			<implementation>com.dainping.cat.consumer.core.dal.MonthlyReportDao</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.dal.jdbc.QueryEngine</role>
@@ -403,35 +522,8 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dainping.cat.consumer.core.dal.DailygraphDao</role>
-			<implementation>com.dainping.cat.consumer.core.dal.DailygraphDao</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.dal.jdbc.QueryEngine</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dainping.cat.consumer.core.dal.DailyReportDao</role>
-			<implementation>com.dainping.cat.consumer.core.dal.DailyReportDao</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.dal.jdbc.QueryEngine</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dainping.cat.consumer.core.dal.GraphDao</role>
-			<implementation>com.dainping.cat.consumer.core.dal.GraphDao</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.dal.jdbc.QueryEngine</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dainping.cat.consumer.core.dal.MonthlyReportDao</role>
-			<implementation>com.dainping.cat.consumer.core.dal.MonthlyReportDao</implementation>
+			<role>com.dainping.cat.consumer.core.dal.TaskPayloadDao</role>
+			<implementation>com.dainping.cat.consumer.core.dal.TaskPayloadDao</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.dal.jdbc.QueryEngine</role>
