@@ -46,11 +46,16 @@ public class DefaultTaskEvent implements TaskEvent {
 
 	@Override
 	public Date getDateProperty(String name, Date defaultValue) {
+		return getDateProperty(name, "yyyy-MM-dd HH:mm:ss", defaultValue);
+	}
+
+	@Override
+	public Date getDateProperty(String name, String format, Date defaultValue) {
 		String value = getProperty(name, null);
 
 		if (value != null) {
 			try {
-				return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(value);
+				return new SimpleDateFormat(format).parse(value);
 			} catch (Exception e) {
 				Cat.logError(String.format("Invalid date format of property(%s) of event(%s)!", name, this), e);
 			}
@@ -60,9 +65,9 @@ public class DefaultTaskEvent implements TaskEvent {
 	}
 
 	@Override
-   public java.util.Date getEndDate() {
-   	return m_endDate;
-   }
+	public java.util.Date getEndDate() {
+		return m_endDate;
+	}
 
 	@Override
 	public int getFailureCount() {
@@ -70,9 +75,9 @@ public class DefaultTaskEvent implements TaskEvent {
 	}
 
 	@Override
-   public String getFailureReason() {
-   	return m_failureReason;
-   }
+	public String getFailureReason() {
+		return m_failureReason;
+	}
 
 	@Override
 	public int getId() {
@@ -109,14 +114,14 @@ public class DefaultTaskEvent implements TaskEvent {
 	}
 
 	@Override
-   public java.util.Date getStartDate() {
-   	return m_startDate;
-   }
+	public java.util.Date getStartDate() {
+		return m_startDate;
+	}
 
 	@Override
-   public int getStatus() {
-   	return m_status;
-   }
+	public int getStatus() {
+		return m_status;
+	}
 
 	@Override
 	public String getSubject() {
@@ -124,42 +129,42 @@ public class DefaultTaskEvent implements TaskEvent {
 	}
 
 	@Override
-   public void setConsumer(String consumer) {
+	public void setConsumer(String consumer) {
 		m_consumer = consumer;
 	}
 
 	@Override
-   public void setCreationDate(java.util.Date creationDate) {
+	public void setCreationDate(java.util.Date creationDate) {
 		m_creationDate = creationDate;
 	}
 
 	@Override
-   public void setEndDate(java.util.Date endDate) {
+	public void setEndDate(java.util.Date endDate) {
 		m_endDate = endDate;
 	}
 
 	@Override
-   public void setFailureCount(int failureCount) {
+	public void setFailureCount(int failureCount) {
 		m_failureCount = failureCount;
 	}
 
 	@Override
-   public void setFailureReason(String failureReason) {
+	public void setFailureReason(String failureReason) {
 		m_failureReason = failureReason;
 	}
 
 	@Override
-   public void setId(int id) {
+	public void setId(int id) {
 		m_id = id;
 	}
 
 	@Override
-   public void setMaxRetryCount(int maxRetryCount) {
+	public void setMaxRetryCount(int maxRetryCount) {
 		m_maxRetryCount = maxRetryCount;
 	}
 
 	@Override
-   public void setProducer(String producer) {
+	public void setProducer(String producer) {
 		m_producer = producer;
 	}
 
@@ -170,22 +175,22 @@ public class DefaultTaskEvent implements TaskEvent {
 	}
 
 	@Override
-   public void setRefKey(String refKey) {
+	public void setRefKey(String refKey) {
 		m_refKey = refKey;
 	}
 
 	@Override
-   public void setStartDate(java.util.Date startDate) {
+	public void setStartDate(java.util.Date startDate) {
 		m_startDate = startDate;
 	}
 
 	@Override
-   public void setStatus(int status) {
+	public void setStatus(int status) {
 		m_status = status;
 	}
 
 	@Override
-   public void setSubject(String subject) {
+	public void setSubject(String subject) {
 		m_subject = subject;
 	}
 

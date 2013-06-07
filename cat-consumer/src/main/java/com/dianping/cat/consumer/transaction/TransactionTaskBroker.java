@@ -12,10 +12,12 @@ public enum TransactionTaskBroker implements TaskEventConsumer {
 		@Override
 		public void consume(TaskEventContext ctx, TaskEvent event) throws TaskEventException {
 			String domain = event.getProperty("domain", null);
-			Date period = event.getDateProperty("period", null);
+			Date period = event.getDateProperty("period", "yyyyMMddHH", null);
 
+			ctx.produce(event, TransactionTask.HOURLY_REPORT.getName(), TransactionTask.HOURLY_REPORT.getRefKey(domain, period));
 			ctx.produce(event, TransactionTask.HOURLY_GRAPH.getName(), TransactionTask.HOURLY_GRAPH.getRefKey(domain, period));
-			ctx.produce(event, TransactionTask.HOURLY_GRAPH_LAST_24H.getName(), TransactionTask.HOURLY_GRAPH_LAST_24H.getRefKey(domain, period));
+			ctx.produce(event, TransactionTask.HOURLY_GRAPH_LAST_24H.getName(),
+			      TransactionTask.HOURLY_GRAPH_LAST_24H.getRefKey(domain, period));
 			ctx.produce(event, TransactionTask.DAILY.getName(), TransactionTask.DAILY.getRefKey(domain, period));
 		}
 	},
@@ -24,7 +26,7 @@ public enum TransactionTaskBroker implements TaskEventConsumer {
 		@Override
 		public void consume(TaskEventContext ctx, TaskEvent event) throws TaskEventException {
 			String domain = event.getProperty("domain", null);
-			Date period = event.getDateProperty("period", null);
+			Date period = event.getDateProperty("period", "yyyyMMddHH", null);
 
 			ctx.produce(event, TransactionTask.DAILY_REPORT.getName(), TransactionTask.DAILY_REPORT.getRefKey(domain, period));
 			ctx.produce(event, TransactionTask.DAILY_GRAPH.getName(), TransactionTask.DAILY_GRAPH.getRefKey(domain, period));
@@ -37,7 +39,7 @@ public enum TransactionTaskBroker implements TaskEventConsumer {
 		@Override
 		public void consume(TaskEventContext ctx, TaskEvent event) throws TaskEventException {
 			String domain = event.getProperty("domain", null);
-			Date period = event.getDateProperty("period", null);
+			Date period = event.getDateProperty("period", "yyyyMMddHH", null);
 
 			ctx.produce(event, TransactionTask.WEEKLY_REPORT.getName(), TransactionTask.WEEKLY_REPORT.getRefKey(domain, period));
 			ctx.produce(event, TransactionTask.WEEKLY_GRAPH.getName(), TransactionTask.WEEKLY_GRAPH.getRefKey(domain, period));
@@ -48,7 +50,7 @@ public enum TransactionTaskBroker implements TaskEventConsumer {
 		@Override
 		public void consume(TaskEventContext ctx, TaskEvent event) throws TaskEventException {
 			String domain = event.getProperty("domain", null);
-			Date period = event.getDateProperty("period", null);
+			Date period = event.getDateProperty("period", "yyyyMMddHH", null);
 
 			ctx.produce(event, TransactionTask.MONTHLY_REPORT.getName(), TransactionTask.MONTHLY_REPORT.getRefKey(domain, period));
 			ctx.produce(event, TransactionTask.MONTHLY_GRAPH.getName(), TransactionTask.MONTHLY_GRAPH.getRefKey(domain, period));

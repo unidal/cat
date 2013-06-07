@@ -149,6 +149,12 @@
 		</component>
 		<component>
 			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>HOURLY_REPORT:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
 			<role-hint>HOURLY_GRAPH:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
 			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
 			<instantiation-strategy>enum</instantiation-strategy>
@@ -161,13 +167,31 @@
 		</component>
 		<component>
 			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>DAILY_REPORT:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
 			<role-hint>DAILY_GRAPH:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
 			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
 			<instantiation-strategy>enum</instantiation-strategy>
 		</component>
 		<component>
 			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>WEEKLY_REPORT:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
 			<role-hint>WEEKLY_GRAPH:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
+			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
+			<instantiation-strategy>enum</instantiation-strategy>
+		</component>
+		<component>
+			<role>com.dianping.cat.task.TaskEventConsumer</role>
+			<role-hint>MONTHLY_REPORT:com.dianping.cat.consumer.transaction.TransactionTaskProcessor</role-hint>
 			<implementation>com.dianping.cat.consumer.transaction.TransactionTaskProcessor</implementation>
 			<instantiation-strategy>enum</instantiation-strategy>
 		</component>

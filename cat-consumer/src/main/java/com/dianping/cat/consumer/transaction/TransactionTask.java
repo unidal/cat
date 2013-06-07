@@ -10,7 +10,7 @@ public enum TransactionTask {
 
 	HOURLY_GRAPH("hourly_graph", "{0}.{1,date,yyyyMMddHH}.{2}"),
 
-	HOURLY_GRAPH_LAST_24H("hourly_graph_last_24h", "{0}.{1,date,yyyyMMdd}.{2}"),
+	HOURLY_GRAPH_LAST_24H("hourly_graph_last_24h", "{0}.{1,date,yyyyMMddHH}.{2}"),
 
 	DAILY("daily", "{0}.{1,date,yyyyMMdd}.{2}"),
 

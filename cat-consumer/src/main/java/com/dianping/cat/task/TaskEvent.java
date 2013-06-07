@@ -10,6 +10,8 @@ public interface TaskEvent {
 
 	public Date getDateProperty(String name, Date defaultValue);
 
+	public Date getDateProperty(String name, String format, Date defaultValue);
+
 	public java.util.Date getEndDate();
 
 	public int getFailureCount();

@@ -44,6 +44,8 @@ public class DefaultTaskEventEngine implements TaskEventEngine, LogEnabled, Task
 
 	private Logger m_logger;
 
+	private long m_checkInternal = 60 * 1000L;
+
 	@Override
 	public void enableLogging(Logger logger) {
 		m_logger = logger;
@@ -135,11 +137,15 @@ public class DefaultTaskEventEngine implements TaskEventEngine, LogEnabled, Task
 					m_logger.warn(e.toString());
 				}
 
-				TimeUnit.MINUTES.sleep(1);
+				TimeUnit.MILLISECONDS.sleep(m_checkInternal);
 			}
 		} catch (InterruptedException e) {
 			// ignore it
 		}
+	}
+
+	public void setCheckInternal(long checkInternal) {
+		m_checkInternal = checkInternal;
 	}
 
 	@Override

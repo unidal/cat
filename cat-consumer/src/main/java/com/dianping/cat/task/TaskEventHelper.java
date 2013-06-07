@@ -1,10 +1,7 @@
 package com.dianping.cat.task;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.unidal.helper.Splitters;
 
 import com.dainping.cat.consumer.core.dal.TaskPayload;
 
@@ -92,64 +89,64 @@ public class TaskEventHelper {
 	}
 
 	private Map<String, String> parse(String payload) {
-		List<String> parts = Splitters.by('\n').noEmptyItem().trim().split(payload);
+		Map<String, String> properties = new LinkedHashMap<String, String>();
 		StringBuilder key = new StringBuilder();
 		StringBuilder value = new StringBuilder();
-		Map<String, String> properties = new LinkedHashMap<String, String>();
+		int len = payload.length();
+		boolean inKey = true;
 
-		for (String part : parts) {
-			int len = part.length();
-			boolean inKey = true;
+		for (int i = 0; i < len; i++) {
+			char ch = payload.charAt(i);
 
-			for (int i = 0; i < len; i++) {
-				char ch = part.charAt(i);
-
-				switch (ch) {
-				case '=':
-					if (inKey) {
-						inKey = false;
-					} else {
-						value.append(ch);
-					}
-
-					break;
-				case '\n':
-					properties.put(key.toString(), value.toString());
-
-					key.setLength(0);
-					value.setLength(0);
-					inKey = true;
-					break;
-				case '\\':
-					if (i + 1 < len) {
-						char ch2 = part.charAt(i + 1);
-
-						switch (ch2) {
-						case 't':
-							ch = '\t';
-							break;
-						case 'r':
-							ch = '\r';
-							break;
-						case 'n':
-							ch = '\n';
-							break;
-						default:
-							ch = ch2;
-							break;
-						}
-					}
-
-					// fall through
-				default:
-					if (inKey) {
-						key.append(ch);
-					} else {
-						value.append(ch);
-					}
-					break;
+			switch (ch) {
+			case '=':
+				if (inKey) {
+					inKey = false;
+				} else {
+					value.append(ch);
 				}
+
+				break;
+			case '\n':
+				properties.put(key.toString(), value.toString());
+
+				key.setLength(0);
+				value.setLength(0);
+				inKey = true;
+				break;
+			case '\\':
+				if (i + 1 < len) {
+					char ch2 = payload.charAt(i + 1);
+
+					switch (ch2) {
+					case 't':
+						ch = '\t';
+						break;
+					case 'r':
+						ch = '\r';
+						break;
+					case 'n':
+						ch = '\n';
+						break;
+					default:
+						ch = ch2;
+						break;
+					}
+				}
+
+				// fall through
+			default:
+				if (inKey) {
+					key.append(ch);
+				} else {
+					value.append(ch);
+				}
+				break;
 			}
+		}
+
+		if (key.length() > 0) {
+			properties.put(key.toString(), value.toString());
 		}
 
 		return properties;
