@@ -5,8 +5,8 @@
 <%@ taglib prefix="w" uri="http://www.unidal.org/web/core"%>
 
 <a:config>
-	<res:useJs value="${res.js.local['jquery.validate.min.js']}" target="head-js" />
 
+	<res:useJs value="${res.js.local['jquery.validate.min.js']}" target="head-js" />
 			<form name="alertSenderConfigUpdate" id="form" method="post"
 				action="${model.pageUri}?op=alertSenderConfigUpdate">
 				<table class="table table-striped table-condensed table-hover">

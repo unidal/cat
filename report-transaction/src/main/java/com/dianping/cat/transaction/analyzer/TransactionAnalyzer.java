@@ -28,6 +28,7 @@ import com.dianping.cat.transaction.model.entity.TransactionReport;
 import com.dianping.cat.transaction.model.entity.TransactionType;
 
 public class TransactionAnalyzer extends AbstractMessageAnalyzer<TransactionReport> implements LogEnabled {
+	public static final String ID = "transaction";
 
 	@Inject
 	private TransactionDelegate m_delegate;
@@ -39,8 +40,6 @@ public class TransactionAnalyzer extends AbstractMessageAnalyzer<TransactionRepo
 	private ServerFilterConfigManager m_serverFilterConfigManager;
 
 	private TransactionStatisticsComputer m_computer = new TransactionStatisticsComputer();
-
-	public static final String ID = "transaction";
 
 	private Pair<Boolean, Long> checkForTruncatedMessage(MessageTree tree, Transaction t) {
 		Pair<Boolean, Long> pair = new Pair<Boolean, Long>(true, t.getDurationInMicros());

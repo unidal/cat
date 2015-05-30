@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wizard package="org.unidal.cat">
+   <webapp package="org.unidal.cat" name="cat" module="false" webres="false" cat="false" plugin-management="false" jstl="true" layout="bootstrap">
+      <module name="report" path="report" default="true">
+         <page name="home" title="Home" default="true" path="home" template="default">
+            <description>Home</description>
+         </page>
+         <page name="transaction" title="Transaction" path="transaction" template="default">
+            <description>Transaction</description>
+         </page>
+         <page name="event" title="Event" path="event" template="default">
+            <description>Event</description>
+         </page>
+      </module>
+   </webapp>
+</wizard>
