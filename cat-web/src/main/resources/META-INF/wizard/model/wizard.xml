@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wizard package="org.unidal.cat.web">
+   <model package="org.unidal.cat.web.layout" name="layout">
+      <sample-model>src/test/resources/org/unidal/cat/view/layout.xml</sample-model>
+   </model>
+</wizard>

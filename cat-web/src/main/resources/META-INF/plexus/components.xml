@@ -1,6 +1,11 @@
 <plexus>
 	<components>
 		<component>
+			<role>org.unidal.web.mvc.Validator</role>
+			<role-hint>nav</role-hint>
+			<implementation>org.unidal.cat.view.NavigationInterceptor</implementation>
+		</component>
+		<component>
 			<role>org.unidal.web.mvc.model.ModuleRegistry</role>
 			<implementation>org.unidal.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>
@@ -24,42 +29,6 @@
 		<component>
 			<role>org.unidal.cat.report.home.JspViewer</role>
 			<implementation>org.unidal.cat.report.home.JspViewer</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>org.unidal.cat.report.transaction.Handler</role>
-			<implementation>org.unidal.cat.report.transaction.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.cat.report.transaction.JspViewer</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>org.unidal.cat.report.transaction.JspViewer</role>
-			<implementation>org.unidal.cat.report.transaction.JspViewer</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>org.unidal.cat.report.event.Handler</role>
-			<implementation>org.unidal.cat.report.event.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.cat.report.event.JspViewer</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>org.unidal.cat.report.event.JspViewer</role>
-			<implementation>org.unidal.cat.report.event.JspViewer</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.web.mvc.view.model.ModelHandler</role>

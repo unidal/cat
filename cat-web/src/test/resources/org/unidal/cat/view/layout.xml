@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout id="ace">
+	<menu id="realtime" title="实时" class="btn btn-success" icon="ace-icon fa fa-signal">
+		<group id="dashboard" title="Dashboard"   icon="menu-icon fa fa-tachometer">
+			<menu-bar id="top_dashboard2"   title="报错大盘2" url="about:blank"/>
+			<menu-bar id="transaction_hour"  title="Transaction" url="/cat/r/t"/>
+		</group>
+		<group id="transaction"  icon="menu-icon fa fa-tachometer" standalone="true">
+			<menu-bar id="top_dashboard"  title="报错大盘" url="about:blank"/>
+		</group>
+	</menu>
+	<menu id="offline" title="离线" class="btn btn-grey" icon="ace-icon fa fa-film">
+	</menu>
+	<menu id="document" title="文档" class="btn btn-warning" icon="ace-icon fa fa-users">
+	</menu>
+	<menu id="config" title="配置" class="btn btn-danger" icon="ace-icon fa fa-cogs">
+	</menu>
+</layout>

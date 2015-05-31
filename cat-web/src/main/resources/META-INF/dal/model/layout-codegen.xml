@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model>
+  <entity name="layout" root="true">
+    <attribute name="id" value-type="String" />
+    <entity-ref name="menu" type="list" names="menus" />
+  </entity>
+  <entity name="menu">
+    <attribute name="id" value-type="String" />
+    <attribute name="title" value-type="String" />
+    <attribute name="active" value-type="boolean" />
+    <attribute name="class" value-type="String" />
+    <attribute name="icon" value-type="String" />
+    <entity-ref name="group" type="list" names="groups" />
+  </entity>
+  <entity name="group">
+    <attribute name="id" value-type="String" />
+    <attribute name="title" value-type="String" />
+    <attribute name="icon" value-type="String" />
+    <attribute name="active" value-type="boolean" />
+    <attribute name="standalone" value-type="boolean" />
+    <entity-ref name="menu-bar" type="list" names="menu-bars" />
+  </entity>
+  <entity name="menu-bar">
+    <attribute name="id" value-type="String" />
+    <attribute name="title" value-type="String" />
+    <attribute name="url" value-type="String" />
+    <attribute name="active" value-type="boolean" />
+  </entity>
+</model>
+

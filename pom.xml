@@ -25,6 +25,7 @@
       <module>cat-foundation</module>
       <module>plugin-transaction</module>
       <module>plugin-event</module>
+      <module>plugin-matrix</module>
    </modules>
    <dependencyManagement>
       <dependencies>
@@ -41,6 +42,11 @@
          <dependency>
             <groupId>com.dianping.cat</groupId>
             <artifactId>plugin-event</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>com.dianping.cat</groupId>
+            <artifactId>plugin-matrix</artifactId>
             <version>${project.version}</version>
          </dependency>
          <dependency>

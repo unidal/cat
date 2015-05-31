@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wizard package="org.unidal.cat.matrix">
+   <webapp package="org.unidal.cat.matrix" name="cat" module="true" webres="false" cat="false" plugin-management="false" jstl="true" layout="bootstrap">
+      <module name="report" path="report" default="true" package="org.unidal.cat.matrix.report">
+         <page name="matrix" title="Matrix" default="true" package="org.unidal.cat.matrix.report.page" path="matrix" template="default">
+            <description>Matrix</description>
+         </page>
+      </module>
+   </webapp>
+</wizard>

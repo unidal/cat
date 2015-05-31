@@ -1,6 +1,5 @@
 package org.unidal.cat.event.view;
 
-import org.unidal.cat.event.EventConstant;
 import org.unidal.cat.plugin.menu.LinkBuilder;
 import org.unidal.cat.plugin.menu.UrlContext;
 
@@ -27,7 +26,7 @@ public enum EventLinkBuilder implements LinkBuilder {
 	};
 
 	public String getId() {
-		return EventConstant.ID + "." + name().toLowerCase();
+		return name().toLowerCase();
 	}
 
 }

@@ -1,6 +1,8 @@
 package org.unidal.cat.report.home;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 
@@ -29,9 +31,19 @@ public class Handler implements PageHandler<Context> {
 
 		model.setAction(Action.VIEW);
 		model.setPage(ReportPage.HOME);
+		
+		
+		Object maps = ctx.getAttribute("_o_");
 
 		if (!ctx.isProcessStopped()) {
-		   m_jspViewer.view(ctx, model);
+			try {
+				m_jspViewer.view(ctx, model);
+			} catch (Exception e) {
+				ctx.addError("view.error", e);
+				StringWriter sw = new StringWriter(2048);
+				e.printStackTrace(new PrintWriter(sw));
+				ctx.getHttpServletResponse().getWriter().write(sw.toString());
+			}
 		}
 	}
 }

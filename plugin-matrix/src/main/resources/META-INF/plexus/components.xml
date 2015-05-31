@@ -1,0 +1,34 @@
+<plexus>
+	<components>
+		<component>
+			<role>org.unidal.web.mvc.model.ModuleRegistry</role>
+			<implementation>org.unidal.web.mvc.model.ModuleRegistry</implementation>
+			<configuration>
+				<defaultModule>org.unidal.cat.matrix.report.ReportModule</defaultModule>
+			</configuration>
+		</component>
+		<component>
+			<role>org.unidal.web.mvc.Module</role>
+			<role-hint>org.unidal.cat.matrix.report.ReportModule</role-hint>
+			<implementation>org.unidal.cat.matrix.report.ReportModule</implementation>
+		</component>
+		<component>
+			<role>org.unidal.cat.matrix.report.page.Handler</role>
+			<implementation>org.unidal.cat.matrix.report.page.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.cat.matrix.report.page.JspViewer</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>org.unidal.cat.matrix.report.page.JspViewer</role>
+			<implementation>org.unidal.cat.matrix.report.page.JspViewer</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
+				</requirement>
+			</requirements>
+		</component>
+	</components>
+</plexus>

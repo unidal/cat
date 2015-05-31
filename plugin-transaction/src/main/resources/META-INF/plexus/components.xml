@@ -1,6 +1,11 @@
 <plexus>
 	<components>
 		<component>
+			<role>org.unidal.cat.plugin.menu.MenuBarBuilder</role>
+			<role-hint>transaction</role-hint>
+			<implementation>org.unidal.cat.transaction.view.TransactionMenuBarBuilder</implementation>
+		</component>
+		<component>
 			<role>org.unidal.web.mvc.model.ModuleRegistry</role>
 			<implementation>org.unidal.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>

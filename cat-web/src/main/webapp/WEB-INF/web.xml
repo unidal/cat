@@ -12,7 +12,7 @@
       </init-param>
       <init-param>
          <param-name>excludes</param-name>
-         <param-value>/css/*,/img/*,/js/*</param-value>
+         <param-value>/assets/*,/css/*,/doc/*,/images/*,/img/*,/js/*</param-value>
       </init-param>
    </filter>
    <filter-mapping>

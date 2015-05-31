@@ -2,7 +2,6 @@ package org.unidal.cat.transaction.view;
 
 import org.unidal.cat.plugin.menu.LinkBuilder;
 import org.unidal.cat.plugin.menu.UrlContext;
-import org.unidal.cat.transaction.TransactionConstant;
 
 public enum TransactionLinkBuilder implements LinkBuilder {
 	HOUR {
@@ -27,7 +26,7 @@ public enum TransactionLinkBuilder implements LinkBuilder {
 	};
 
 	public String getId() {
-		return TransactionConstant.ID + "." + name().toLowerCase();
+		return name().toLowerCase();
 	}
 
 }

@@ -3,7 +3,7 @@
    <display-name>app</display-name>
    <tlib-version>1.2</tlib-version>
    <short-name>a</short-name>
-   <uri>http://org.unidal/cat/layout</uri>
+   <uri>http://www.unidal.org/cat/layout</uri>
    <tag-file>
       <name>layout</name>
       <path>/WEB-INF/tags/layout.tag</path>
