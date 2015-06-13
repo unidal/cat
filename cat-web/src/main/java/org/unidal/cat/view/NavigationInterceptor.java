@@ -129,7 +129,9 @@ public class NavigationInterceptor extends ContainerHolder implements Validator<
 
 		@Override
 		public String buildParams(String prepend, String... keys) {
-			StringBuilder sb = new StringBuilder(256).append(prepend).append('&');
+			StringBuilder sb = new StringBuilder(256);
+			
+			sb.append(prepend).append('&');
 
 			for (String key : keys) {
 				String value = getAttribute(key);

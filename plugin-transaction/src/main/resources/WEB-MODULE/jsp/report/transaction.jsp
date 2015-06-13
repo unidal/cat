@@ -5,5 +5,6 @@
 <jsp:useBean id="model" type="org.unidal.cat.transaction.report.page.Model" scope="request"/>
 
 <a:layout>
-   View of transaction page under report, op=${payload.action}
+   View of transaction page under report, op=${payload.action}, domain=${payload.domain}
+   <br> <a href="?op=hour&${nav}">link</a>
 </a:layout>

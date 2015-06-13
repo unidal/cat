@@ -2,6 +2,11 @@
 	<components>
 		<component>
 			<role>org.unidal.web.mvc.Validator</role>
+			<role-hint>^nav.register</role-hint>
+			<implementation>org.unidal.cat.view.NavRegisterInterceptor</implementation>
+		</component>
+		<component>
+			<role>org.unidal.web.mvc.Validator</role>
 			<role-hint>nav</role-hint>
 			<implementation>org.unidal.cat.view.NavigationInterceptor</implementation>
 		</component>
