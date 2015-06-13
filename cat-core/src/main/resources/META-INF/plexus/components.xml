@@ -32,6 +32,18 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.service.ProjectService</role>
+			<implementation>com.dianping.cat.service.ProjectService</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.core.dal.ProjectDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.server.ServerConfigManager</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>com.dianping.cat.service.IpService</role>
 			<implementation>com.dianping.cat.service.IpService</implementation>
 		</component>
@@ -222,6 +234,19 @@
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.config.content.ContentFetcher</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.graph.svg.ValueTranslater</role>
+			<implementation>com.dianping.cat.report.graph.svg.DefaultValueTranslater</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.graph.svg.GraphBuilder</role>
+			<implementation>com.dianping.cat.report.graph.svg.DefaultGraphBuilder</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.graph.svg.ValueTranslater</role>
 				</requirement>
 			</requirements>
 		</component>

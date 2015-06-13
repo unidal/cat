@@ -33,7 +33,7 @@ public class TestServer extends JettyServer {
 
    @Override
    protected int getServerPort() {
-      return 2280;
+      return 2281;
    }
 
    @Override
@@ -44,7 +44,7 @@ public class TestServer extends JettyServer {
    @Test
    public void startWebapp() throws Exception {
       // open the page in the default browser
-      display("/cat/report");
+      display("/cat/report/transaction");
       waitForAnyKey();
    }
 }

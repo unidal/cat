@@ -1,0 +1,20 @@
+<plexus>
+	<components>
+		<component>
+			<role>org.unidal.web.mvc.model.ModuleRegistry</role>
+			<implementation>org.unidal.web.mvc.model.ModuleRegistry</implementation>
+			<configuration>
+				<defaultModule>org.unidal.cat.model.report.ReportModule</defaultModule>
+			</configuration>
+		</component>
+		<component>
+			<role>org.unidal.web.mvc.Module</role>
+			<role-hint>org.unidal.cat.model.report.ReportModule</role-hint>
+			<implementation>org.unidal.cat.model.report.ReportModule</implementation>
+		</component>
+		<component>
+			<role>org.unidal.cat.model.report.page.Handler</role>
+			<implementation>org.unidal.cat.model.report.page.Handler</implementation>
+		</component>
+	</components>
+</plexus>

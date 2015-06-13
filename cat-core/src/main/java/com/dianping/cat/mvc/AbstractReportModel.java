@@ -52,6 +52,7 @@ public abstract class AbstractReportModel<A extends Action, P extends Page, M ex
 			m_projectService = ContainerLoader.getDefaultContainer().lookup(ProjectService.class);
 			m_hostinfoService = ContainerLoader.getDefaultContainer().lookup(HostinfoService.class);
 		} catch (Exception e) {
+			e.printStackTrace();
 			Cat.logError(e);
 		}
 	}

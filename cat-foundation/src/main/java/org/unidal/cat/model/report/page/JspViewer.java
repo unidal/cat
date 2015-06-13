@@ -1,6 +1,6 @@
-package org.unidal.cat.transaction.report.page;
+package org.unidal.cat.model.report.page;
 
-import org.unidal.cat.transaction.report.ReportPage;
+import org.unidal.cat.model.report.ReportPage;
 import org.unidal.web.mvc.view.BaseJspViewer;
 
 public class JspViewer extends BaseJspViewer<ReportPage, Action, Context, Model> {
@@ -9,8 +9,10 @@ public class JspViewer extends BaseJspViewer<ReportPage, Action, Context, Model>
 		Action action = model.getAction();
 
 		switch (action) {
-		default:
+		case XML:
 			return JspFile.VIEW.getPath();
 		}
+
+		throw new RuntimeException("Unknown action: " + action);
 	}
 }

@@ -57,10 +57,6 @@ import com.dianping.cat.report.graph.metric.MetricDataFetcher;
 import com.dianping.cat.report.graph.metric.impl.CachedMetricReportServiceImpl;
 import com.dianping.cat.report.graph.metric.impl.DataExtractorImpl;
 import com.dianping.cat.report.graph.metric.impl.MetricDataFetcherImpl;
-import com.dianping.cat.report.graph.svg.DefaultGraphBuilder;
-import com.dianping.cat.report.graph.svg.DefaultValueTranslater;
-import com.dianping.cat.report.graph.svg.GraphBuilder;
-import com.dianping.cat.report.graph.svg.ValueTranslater;
 import com.dianping.cat.report.page.ConfigReloadTask;
 import com.dianping.cat.report.page.activity.config.ActivityConfigManager;
 import com.dianping.cat.report.page.app.service.AppConnectionService;
@@ -97,10 +93,6 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		List<Component> all = new ArrayList<Component>();
 
 		all.add(C(JsonBuilder.class));
-
-		all.add(C(ValueTranslater.class, DefaultValueTranslater.class));
-		all.add(C(GraphBuilder.class, DefaultGraphBuilder.class) //
-		      .req(ValueTranslater.class));
 
 		all.add(C(PayloadNormalizer.class).req(ServerConfigManager.class));
 

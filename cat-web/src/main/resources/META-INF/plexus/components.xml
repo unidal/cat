@@ -11,6 +11,25 @@
 			<implementation>org.unidal.cat.view.NavigationInterceptor</implementation>
 		</component>
 		<component>
+			<role>org.unidal.initialization.Module</role>
+			<role-hint>cat-home</role-hint>
+			<implementation>org.unidal.cat.CatWebModule</implementation>
+		</component>
+		<component>
+			<role>org.unidal.initialization.ModuleManager</role>
+			<implementation>org.unidal.initialization.DefaultModuleManager</implementation>
+			<configuration>
+				<topLevelModules>cat-home</topLevelModules>
+			</configuration>
+		</component>
+		<component>
+			<role>org.unidal.dal.jdbc.datasource.JdbcDataSourceDescriptorManager</role>
+			<implementation>org.unidal.dal.jdbc.datasource.JdbcDataSourceDescriptorManager</implementation>
+			<configuration>
+				<datasourceFile>/data/appdatas/cat/datasources.xml</datasourceFile>
+			</configuration>
+		</component>
+		<component>
 			<role>org.unidal.web.mvc.model.ModuleRegistry</role>
 			<implementation>org.unidal.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>

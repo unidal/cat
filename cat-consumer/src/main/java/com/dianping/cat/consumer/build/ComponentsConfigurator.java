@@ -114,7 +114,6 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		final List<Component> all = new ArrayList<Component>();
 		final String ID = StateAnalyzer.ID;
 
-		all.add(C(ProjectService.class).req(ProjectDao.class, ServerConfigManager.class));
 		all.add(C(MessageAnalyzer.class, ID, StateAnalyzer.class).is(PER_LOOKUP).req(ReportManager.class, ID)
 		      .req(ServerStatisticManager.class, ServerConfigManager.class, ServerFilterConfigManager.class));
 		all.add(C(ReportManager.class, ID, DefaultReportManager.class).is(PER_LOOKUP) //

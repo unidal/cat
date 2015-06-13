@@ -36,6 +36,7 @@ import com.dianping.cat.config.web.url.UrlPatternConfigManager;
 import com.dianping.cat.config.web.url.UrlPatternHandler;
 import com.dianping.cat.core.config.ConfigDao;
 import com.dianping.cat.core.dal.HostinfoDao;
+import com.dianping.cat.core.dal.ProjectDao;
 import com.dianping.cat.core.dal.TaskDao;
 import com.dianping.cat.message.DefaultPathBuilder;
 import com.dianping.cat.message.PathBuilder;
@@ -43,8 +44,13 @@ import com.dianping.cat.message.spi.MessageCodec;
 import com.dianping.cat.message.spi.codec.PlainTextMessageCodec;
 import com.dianping.cat.report.DomainGroupConfigManager;
 import com.dianping.cat.report.DomainValidator;
+import com.dianping.cat.report.graph.svg.DefaultGraphBuilder;
+import com.dianping.cat.report.graph.svg.DefaultValueTranslater;
+import com.dianping.cat.report.graph.svg.GraphBuilder;
+import com.dianping.cat.report.graph.svg.ValueTranslater;
 import com.dianping.cat.service.HostinfoService;
 import com.dianping.cat.service.IpService;
+import com.dianping.cat.service.ProjectService;
 import com.dianping.cat.statistic.ServerStatisticManager;
 import com.dianping.cat.task.TaskManager;
 
@@ -62,6 +68,7 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 
 		all.add(C(ServerConfigManager.class));
 		all.add(C(HostinfoService.class).req(HostinfoDao.class, ServerConfigManager.class));
+		all.add(C(ProjectService.class).req(ProjectDao.class, ServerConfigManager.class));
 		all.add(C(IpService.class));
 		all.add(C(TaskManager.class).req(TaskDao.class));
 		all.add(C(ServerStatisticManager.class));
@@ -102,6 +109,11 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 
 		all.add(C(UrlPatternConfigManager.class).req(ConfigDao.class, UrlPatternHandler.class, ContentFetcher.class));
 
+		all.add(C(ValueTranslater.class, DefaultValueTranslater.class));
+		
+		all.add(C(GraphBuilder.class, DefaultGraphBuilder.class) //
+		      .req(ValueTranslater.class));
+		
 		all.add(C(Module.class, CatCoreModule.ID, CatCoreModule.class));
 
 		// database

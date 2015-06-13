@@ -267,16 +267,17 @@ public class ChannelManager implements Task {
 
 	private List<InetSocketAddress> parseSocketAddress(String content) {
 		try {
-			List<String> strs = Splitters.by(";").noEmptyItem().split(content);
+			List<String> strs = Splitters.by(";").trim().noEmptyItem().split(content);
 			List<InetSocketAddress> address = new ArrayList<InetSocketAddress>();
 
 			for (String str : strs) {
-				List<String> items = Splitters.by(":").noEmptyItem().split(str);
+				List<String> items = Splitters.by(":").trim().noEmptyItem().split(str);
 
 				address.add(new InetSocketAddress(items.get(0), Integer.parseInt(items.get(1))));
 			}
 			return address;
 		} catch (Exception e) {
+			m_logger.warn(content);
 			m_logger.error(e.getMessage(), e);
 		}
 		return new ArrayList<InetSocketAddress>();
