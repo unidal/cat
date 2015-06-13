@@ -1,6 +1,11 @@
 <plexus>
 	<components>
 		<component>
+			<role>org.unidal.web.mvc.Validator</role>
+			<role-hint>^nav.store</role-hint>
+			<implementation>org.unidal.cat.nav.NavStoreInterceptor</implementation>
+		</component>
+		<component>
 			<role>org.unidal.web.mvc.model.ModuleRegistry</role>
 			<implementation>org.unidal.web.mvc.model.ModuleRegistry</implementation>
 			<configuration>

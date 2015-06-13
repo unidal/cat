@@ -7,21 +7,21 @@ public enum TransactionLinkBuilder implements LinkBuilder {
 	HOUR {
 		@Override
 		public String buildParameters(UrlContext ctx) {
-			return ctx.buildParams("op=hour", "domain", "ip", "date");
+			return ctx.buildParams("transaction?op=view");
 		}
 	},
 
 	HELP {
 		@Override
 		public String buildParameters(UrlContext ctx) {
-			return ctx.buildParams("op=help", "domain", "ip", "date");
+			return ctx.buildParams("transaction?op=help");
 		}
 	},
 
 	CONFIG {
 		@Override
 		public String buildParameters(UrlContext ctx) {
-			return ctx.buildParams("op=config", "domain", "ip", "date");
+			return ctx.buildParams("transaction?op=config");
 		}
 	};
 

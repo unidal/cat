@@ -26,8 +26,8 @@ import org.unidal.lookup.annotation.Named;
 import org.unidal.web.mvc.ActionContext;
 import org.unidal.web.mvc.Validator;
 
-@Named(type = Validator.class, value = "nav")
-public class NavigationInterceptor extends ContainerHolder implements Validator<ActionContext<?>>, Initializable,
+@Named(type = Validator.class, value = "layout")
+public class LayoutInterceptor extends ContainerHolder implements Validator<ActionContext<?>>, Initializable,
       LogEnabled {
 
 	private Map<String, MenuBarBuilder> m_builders;
@@ -35,12 +35,6 @@ public class NavigationInterceptor extends ContainerHolder implements Validator<
 	private Logger m_logger;
 
 	private String m_xml;
-
-	private static final String DOMAIN = "domain";
-
-	private static final String DATE = "date";
-
-	private static final String IP = "ip";
 
 	private static final String OP = "op";
 
@@ -66,16 +60,9 @@ public class NavigationInterceptor extends ContainerHolder implements Validator<
 		HttpServletRequest request = ctx.getHttpServletRequest();
 		String contextPath = request.getContextPath();
 		String url = request.getRequestURI();
-		String domain = request.getParameter(DOMAIN);
-		String date = request.getParameter(DATE);
-		String ip = request.getParameter(IP);
 		String op = request.getParameter(OP);
-
 		Map<String, String> pars = new HashMap<String, String>();
 
-		pars.put(DOMAIN, domain);
-		pars.put(DATE, date);
-		pars.put(IP, ip);
 		pars.put(OP, op);
 
 		UrlContext urlCtx = new DefaultUrlContext(contextPath, url, pars);
@@ -89,18 +76,6 @@ public class NavigationInterceptor extends ContainerHolder implements Validator<
 		}
 
 		ctx.getHttpServletRequest().setAttribute("layout", m_layout);
-		
-		//string encode
-		
-		//payload validate
-		
-		// inbound
-		
-		// bussniess 
-		
-		//Navigation receptor
-		
-		//view
 	}
 
 	static class DefaultUrlContext implements UrlContext {
@@ -111,26 +86,16 @@ public class NavigationInterceptor extends ContainerHolder implements Validator<
 
 		private String m_contextPath;
 
-		private String m_domain;
-
-		private String m_date;
-
 		public DefaultUrlContext(String contextPath, String reqeustUrl, Map<String, String> pars) {
 			m_contextPath = contextPath;
 			m_pars = pars;
 			m_requestUrl = reqeustUrl;
-			m_domain = pars.get("domain");
-			m_date = pars.get("date");
-
-			if (m_domain == null) {
-				m_domain = "cat";
-			}
 		}
 
 		@Override
 		public String buildParams(String prepend, String... keys) {
 			StringBuilder sb = new StringBuilder(256);
-			
+
 			sb.append(prepend).append('&');
 
 			for (String key : keys) {
@@ -160,16 +125,6 @@ public class NavigationInterceptor extends ContainerHolder implements Validator<
 		@Override
 		public String getContextPath() {
 			return m_contextPath;
-		}
-
-		@Override
-		public String getDate() {
-			return m_date;
-		}
-
-		@Override
-		public String getDomain() {
-			return m_domain;
 		}
 
 		@Override
@@ -209,7 +164,7 @@ public class NavigationInterceptor extends ContainerHolder implements Validator<
 			String pluginOp = m_ctx.getPulginOp();
 			String key = pluginId + '_' + pluginOp;
 			String id = menuBar.getId();
-			
+
 			if (id.equalsIgnoreCase(key)) {
 				m_hasSet = true;
 				menuBar.setActive(true);

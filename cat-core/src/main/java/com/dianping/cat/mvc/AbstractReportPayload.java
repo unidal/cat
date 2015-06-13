@@ -27,15 +27,15 @@ public abstract class AbstractReportPayload<A extends Action, P extends Page> im
 	protected long m_date;
 
 	@FieldMeta("domain")
-	private String m_domain = Constants.CAT;
+	protected String m_domain = Constants.CAT;
 
 	@FieldMeta("ip")
-	private String m_ipAddress = Constants.ALL;
+	protected String m_ipAddress = Constants.ALL;
 
 	protected P m_page;
 
 	@FieldMeta("reportType")
-	private String m_reportType = "day";
+	protected String m_reportType = "day";
 
 	@FieldMeta("step")
 	protected int m_step;

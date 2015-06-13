@@ -105,6 +105,11 @@ public abstract class AbstractReportModel<A extends Action, P extends Page, M ex
 	public abstract String getDomain();
 
 	public Map<String, Department> getDomainGroups() {
+		// TODO remove it
+		if (m_projectService == null) {
+			return new HashMap<String, ProjectService.Department>();
+		}
+		
 		return m_projectService.findDepartments(getDomains());
 	}
 
@@ -134,6 +139,11 @@ public abstract class AbstractReportModel<A extends Action, P extends Page, M ex
 		Map<String, String> ipToHostname = new HashMap<String, String>();
 
 		for (String ip : ips) {
+			// TODO remove it
+			if (m_hostinfoService == null) {
+				break;
+			}
+
 			String hostname = m_hostinfoService.queryHostnameByIp(ip);
 
 			if (hostname != null && !hostname.equalsIgnoreCase("null")) {

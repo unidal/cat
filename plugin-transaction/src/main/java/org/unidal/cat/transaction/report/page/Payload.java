@@ -2,13 +2,14 @@ package org.unidal.cat.transaction.report.page;
 
 import java.net.URLEncoder;
 
+import org.unidal.cat.nav.NavStore;
+import org.unidal.cat.transaction.report.ReportPage;
 import org.unidal.web.mvc.ActionContext;
 import org.unidal.web.mvc.payload.annotation.FieldMeta;
 
 import com.dianping.cat.mvc.AbstractReportPayload;
-import org.unidal.cat.transaction.report.ReportPage;
 
-public class Payload extends AbstractReportPayload<Action,ReportPage> {
+public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@FieldMeta("op")
 	private Action m_action;
 
@@ -89,7 +90,7 @@ public class Payload extends AbstractReportPayload<Action,ReportPage> {
 	}
 
 	public void setQueryName(String queryName) {
-		this.m_queryName = queryName;
+		m_queryName = queryName;
 	}
 
 	public void setSortBy(String sortBy) {
@@ -109,6 +110,12 @@ public class Payload extends AbstractReportPayload<Action,ReportPage> {
 		if (m_action == null) {
 			m_action = Action.HOURLY_REPORT;
 		}
-	}
 
+		NavStore store = ctx.getAttribute(NavStore.ID);
+
+		m_domain = store.refreshDomain(m_domain);
+		m_ipAddress = store.refreshIp(m_ipAddress);
+		m_reportType = store.refreshReportType(m_reportType);
+		m_date = store.refreshDate(m_date);
+	}
 }

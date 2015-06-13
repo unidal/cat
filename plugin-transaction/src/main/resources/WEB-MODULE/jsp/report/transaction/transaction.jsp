@@ -1,6 +1,6 @@
 <%@ page session="false" language="java" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
+<%@ taglib prefix="a" uri="http://www.unidal.org/cat/layout" %>
 <%@ taglib prefix="w" uri="http://www.unidal.org/web/core"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
@@ -10,9 +10,23 @@
 <jsp:useBean id="model"	type="org.unidal.cat.transaction.report.page.Model" scope="request" />
 <c:set var="report" value="${model.report}"/>
 
-<a:report title="Transaction Report${empty payload.type ? '' : ' :: '}<a href='?domain=${model.domain}&date=${model.date}&type=${payload.encodedType}'>${payload.type}</a>" navUrlPrefix="ip=${model.ipAddress}&queryname=${model.queryName}&domain=${model.domain}${empty payload.type ? '' : '&type='}${payload.encodedType}" timestamp="${w:format(model.creatTime,'yyyy-MM-dd HH:mm:ss')}">
-<jsp:attribute name="subtitle">${w:format(report.startTime,'yyyy-MM-dd HH:mm:ss')} to ${w:format(report.endTime,'yyyy-MM-dd HH:mm:ss')}</jsp:attribute>
-<jsp:body>
+<a:layout>
+
+<div class="breadcrumbs" id="breadcrumbs">
+	<script type="text/javascript">
+		try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+	</script>
+	<span class="text-danger title">【报表时间】</span><span class="text-success">
+		${w:format(report.startTime,'yyyy-MM-dd HH:mm:ss')} to ${w:format(report.endTime,'yyyy-MM-dd HH:mm:ss')}
+	</span>
+	<div class="nav-search nav" id="nav-search">
+		<span class="text-danger switch">【<a class="switch" href="?op=history&${_n}"><span class="text-danger">切到历史模式</span></a>】</span>
+		<c:forEach var="nav" items="${model.navs}">
+			&nbsp;[ <a href="?date=${model.date}&ip=${model.ipAddress}&step=${nav.hours}&${navUrlPrefix}">${nav.title}</a> ]
+		</c:forEach>
+		&nbsp;[ <a href="?${navUrlPrefix}">now</a> ]&nbsp;
+	</div>
+</div>
 
 <table class="machines">
 	<tr class="left">
@@ -40,7 +54,8 @@
 		</th>
 	</tr>
 </table>
-<script type="text/javascript" src="/cat/js/appendHostname.js"></script>
+
+<script type="text/javascript" src="${model.webapp}/js/appendHostname.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		appendHostname(${model.ipToHostnameStr});
@@ -82,7 +97,7 @@
 					<td>${w:format(e.totalCount,'#,###,###,###,##0')}</td>
 					<td>${w:format(e.failCount,'#,###,###,###,##0')}</td>
 					<td>&nbsp;${w:format(e.failPercent/100,'0.0000%')}</td>
-					<td><a href="/cat/r/m/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}">Log View</a></td>
+					<td><a href="${model.webapp}/r/m/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}">Log View</a></td>
 					<td>${w:format(e.min,'###,##0.#')}</td>
 					<td>${w:format(e.max,'###,##0.#')}</td>
 					<td>${w:format(e.avg,'###,##0.0')}</td>
@@ -133,7 +148,7 @@
 					<td>${w:format(e.totalCount,'#,###,###,###,##0')}</td>
 					<td>${w:format(e.failCount,'#,###,###,###,##0')}</td>
 					<td>&nbsp;${w:format(e.failPercent/100,'0.0000%')}</td>
-					<td class="center"><a href="/cat/r/m/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}">Log View</a></td>
+					<td class="center"><a href="${model.webapp}/r/m/${empty e.failMessageUrl ? e.successMessageUrl : e.failMessageUrl}?domain=${model.domain}&${nav}">Log View</a></td>
 					<td>${w:format(e.min,'###,##0.#')}</td>
 					<td>${w:format(e.max,'###,##0.#')}</td>
 					<td>${w:format(e.avg,'###,##0.0')}</td>
@@ -173,5 +188,5 @@
 		</script>
 	</c:when>
 </c:choose>
-</jsp:body>
-</a:report>
+
+</a:layout>

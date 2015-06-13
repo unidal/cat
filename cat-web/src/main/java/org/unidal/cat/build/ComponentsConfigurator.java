@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.unidal.cat.CatWebModule;
-import org.unidal.cat.view.NavRegisterInterceptor;
-import org.unidal.cat.view.NavigationInterceptor;
+import org.unidal.cat.view.LayoutInterceptor;
 import org.unidal.dal.jdbc.datasource.JdbcDataSourceDescriptorManager;
 import org.unidal.initialization.DefaultModuleManager;
 import org.unidal.initialization.Module;
@@ -18,8 +17,7 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 	public List<Component> defineComponents() {
 		List<Component> all = new ArrayList<Component>();
 
-		all.add(A(NavRegisterInterceptor.class));
-		all.add(A(NavigationInterceptor.class));
+		all.add(A(LayoutInterceptor.class));
 
 		all.add(C(Module.class, CatWebModule.ID, CatWebModule.class));
 

@@ -14,6 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="${model.webapp}/assets/css/ace-skins.min.css">
 		<link rel="stylesheet" type="text/css" href="${model.webapp}/assets/css/ace-rtl.min.css">
 		<link rel="stylesheet" type="text/css" href="${model.webapp}/css/body.css">
+		
 		<script type="text/javascript" src='${model.webapp}/assets/js/jquery.min.js'> </script>
 		<script type="text/javascript" src="${model.webapp}/assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="${model.webapp}/assets/js/jquery-ui.min.js"></script>
@@ -113,7 +114,7 @@
 												<li id="${menuBar.id}">
 											</c:otherwise>
 										</c:choose>
-											<a href="${menuBar.url}">
+											<a href="${menuBar.url}${_n}">
 											<i class="menu-icon fa fa-caret-right"></i>${menuBar.title}</a>
 											<b class="arrow"></b>
 										</li>
@@ -142,7 +143,7 @@
 														<li id="${menuBar.id}">
 													</c:otherwise>
 												</c:choose>
-													<a href="${menuBar.url}">
+													<a href="${menuBar.url}${_n}">
 													<i class="menu-icon fa fa-caret-right"></i>${menuBar.title}</a>
 													<b class="arrow"></b>
 												</li>
